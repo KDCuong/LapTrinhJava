@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -22,15 +24,14 @@ public class DataProvider {
     public Connection getConnection() {
         return cn;
     }
-    
-     public void initializeDB() throws ClassNotFoundException,SQLException{
+
+    public DataProvider() throws ClassNotFoundException,SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafx", "root", "");
-        this.stm = cn.createStatement();
+        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/professionaltoeic", "root", "24635701");
     }
      
      public ResultSet executeReader(String sql) throws SQLException, ClassNotFoundException {
-        initializeDB();
+        this.stm = cn.createStatement();
         return stm.executeQuery(sql);
     }
      
@@ -39,14 +40,16 @@ public class DataProvider {
             try {
                 stm.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+                alert.showAndWait();
             }
         }
         if(cn != null){
             try {
                 cn.close();
             }catch (SQLException e){
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+                alert.showAndWait();
             }
         }
     }
