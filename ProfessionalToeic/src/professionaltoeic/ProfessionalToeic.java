@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package professionaltoiec;
+package professionaltoeic;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author cuong1312
  */
-public class ProfessionalToiec extends Application {
+public class ProfessionalToeic extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
