@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package professionaltoeic;
+package professionaltoeic.Controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,31 +15,35 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
+ * FXML Controller class
  *
- * @author cuong1312
+ * @author curly
  */
-public class FXMLDocumentController implements Initializable {
-    
+public class LoginController  implements Initializable  {
 
     @FXML
-    private Button btn1;
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-      public void tinhAction(ActionEvent event) throws IOException {
-          Stage stage = new Stage();
-
-
-        Parent root = FXMLLoader.load(getClass().getResource("Controller/FXML/Login.fxml"));
+    private Button btnR ;
+    /**
+     * Initializes the controller class.
+     */
+   
+    @FXML
+     private void ButtonAction(ActionEvent event) throws IOException {
+         Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/Register.fxml"));
+        
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
-     }
+        System.out.println("You clicked me!");
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }    
+   
 }
