@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,22 +33,24 @@ public class AdministratorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    public void callQuestionManagerment(ActionEvent event) throws IOException {
-         Stage stage = new Stage();
-
+    public void callQuestionManagerment(ActionEvent event) throws IOException {  
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("FXML/QuestionManagement.fxml"));
         Scene scene = new Scene(root);
-        
+        stage.setTitle("QuestionManagement");
         stage.setScene(scene);
         stage.show();
      }
     
-    public void callUserManagerment(ActionEvent event) throws IOException {
-         Stage stage = new Stage();
-
+    public void callUserManagerment(ActionEvent event) throws IOException {        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setResizable(false);
         Parent root = FXMLLoader.load(getClass().getResource("FXML/UserManagement.fxml"));
         Scene scene = new Scene(root);
-        
+        stage.setTitle("UserManagement");
         stage.setScene(scene);
         stage.show();
      }
