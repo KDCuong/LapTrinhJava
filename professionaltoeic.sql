@@ -1,6 +1,6 @@
 /*
-SQLyog Trial v13.0.0 (64 bit)
-MySQL - 10.1.31-MariaDB : Database - professionaltoeic
+SQLyog Community v12.5.0 (64 bit)
+MySQL - 5.7.21-log : Database - professionaltoeic
 *********************************************************************
 */
 
@@ -21,20 +21,25 @@ USE `professionaltoeic`;
 DROP TABLE IF EXISTS `question`;
 
 CREATE TABLE `question` (
-  `question_id` int(11) NOT NULL,
-  `question_type` int(11) DEFAULT NULL,
-  `question_content` text COLLATE utf8_unicode_ci,
+  `question_id` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `question_type` int(11) NOT NULL,
+  `question_content` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `question_img` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `question_listen` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `question_1` text COLLATE utf8_unicode_ci,
-  `question_2` text COLLATE utf8_unicode_ci,
-  `question_3` text COLLATE utf8_unicode_ci,
-  `question_4` text COLLATE utf8_unicode_ci,
+  `question_audio` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `anwser_1` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `anwser_2` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `anwser_3` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `anwser_4` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `paragraph_id` int(11) DEFAULT NULL,
+  `question_flag` int(1) NOT NULL,
   PRIMARY KEY (`question_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `question` */
+
+insert  into `question`(`question_id`,`question_type`,`question_content`,`question_img`,`question_audio`,`anwser_1`,`anwser_2`,`anwser_3`,`anwser_4`,`paragraph_id`,`question_flag`) values 
+('GM001',3,'ABCTEST',NULL,NULL,'True','False','Not Given',NULL,NULL,1),
+('GM002',3,'CuongTest',NULL,NULL,'1','2','3','4',NULL,1);
 
 /*Table structure for table `user` */
 
