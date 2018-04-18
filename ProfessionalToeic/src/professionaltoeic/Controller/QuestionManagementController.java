@@ -99,4 +99,16 @@ public class QuestionManagementController implements Initializable {
         colStatus.setCellValueFactory(new PropertyValueFactory<>("flag"));
         tbQuestion.setItems(list);
     }
+    
+    public void callAddQuestionManagerment(ActionEvent event) throws IOException {        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/AddQuestionManagement.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("AddQuestionManagement");
+        stage.setScene(scene);
+        stage.show();
+     }
+    
 }
