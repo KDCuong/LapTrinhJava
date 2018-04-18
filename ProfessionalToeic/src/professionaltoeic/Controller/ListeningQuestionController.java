@@ -5,9 +5,16 @@
  */
 package professionaltoeic.Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -24,4 +31,14 @@ public class ListeningQuestionController implements Initializable {
         // TODO
     }    
     
+    public void callAddQuestionManagerment(ActionEvent event) throws IOException {        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/AddQuestionManagement.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("AddQuestionManagement");
+        stage.setScene(scene);
+        stage.show();
+     }
 }

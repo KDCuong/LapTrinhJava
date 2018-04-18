@@ -10,10 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.AdministratorController">
-    <stylesheets>
-        <URL value="@administrator.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="490.0" prefWidth="648.0" stylesheets="@../../CSS/administrator.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.AdministratorController">
    <children>
       <GridPane layoutY="-8.0" prefHeight="498.0" prefWidth="648.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/administrator.css">
         <columnConstraints>

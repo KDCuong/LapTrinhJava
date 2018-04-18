@@ -18,7 +18,17 @@
     -fx-font-type: bold;
 }
 
-.Label{
+.ButtonUpdate{
+    -fx-background-color: #ffff00;
+    -fx-font-type: bold;
+}
+
+.ButtonDel{
+    -fx-background-color: #9999ff;
+    -fx-font-type: bold;
+}
+
+Label{
     -fx-text-fill: white;
 }
 

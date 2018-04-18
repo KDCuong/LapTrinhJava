@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="774.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/listeningquestion.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="professionaltoeic.Controller.ListeningQuestionController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="774.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/listeningquestion.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.ListeningQuestionController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="122.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="652.0" />
@@ -34,46 +34,49 @@
             <Insets left="15.0" />
          </GridPane.margin>
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextArea prefHeight="133.0" prefWidth="430.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label text="Audio Path" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField prefHeight="31.0" prefWidth="280.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="Image Path" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <VBox prefHeight="228.0" prefWidth="746.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="A .">
+                  <RadioButton mnemonicParsing="false" selected="true" text="A ." textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <padding>
                         <Insets left="40.0" />
                      </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="GroupAnswer" />
+                     </toggleGroup>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0" />
+                  <TextField prefHeight="43.0" prefWidth="630.0">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="B .">
+                  <RadioButton mnemonicParsing="false" text="B ." textFill="WHITE" toggleGroup="$GroupAnswer">
                      <padding>
                         <Insets left="40.0" />
                      </padding>
@@ -81,12 +84,15 @@
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0" />
+                  <TextField prefHeight="43.0" prefWidth="630.0">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="C .">
+                  <RadioButton mnemonicParsing="false" text="C ." textFill="WHITE" toggleGroup="$GroupAnswer">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -94,12 +100,15 @@
                         <Insets left="40.0" />
                      </padding>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0" />
+                  <TextField prefHeight="43.0" prefWidth="630.0">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="D .">
+                  <RadioButton mnemonicParsing="false" text="D ." textFill="WHITE" toggleGroup="$GroupAnswer">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -107,14 +116,17 @@
                         <Insets left="40.0" />
                      </padding>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0" />
+                  <TextField prefHeight="43.0" prefWidth="630.0">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></TextField>
                </children>
             </HBox>
          </children>
       </VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="89.0" prefWidth="774.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
-            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonAdd" text="Add New">
+            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonAdd" text="Add">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -129,14 +141,44 @@
                   <Insets bottom="5.0" right="40.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonBack" text="Go Back">
+            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonDel" text="Delete">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="53.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icon/delete_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonUpdate" text="Update">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="53.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" styleClass="ButtonUpdate">
+                     <image>
+                        <Image url="@../../Icon/update_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#callAddQuestionManagerment" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonBack" text="Cancel">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="48.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../Icon/go_back_icon.png" />
+                        <Image url="@../../Icon/cancel_icon.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -144,6 +186,21 @@
                   <Insets bottom="5.0" right="50.0" />
                </HBox.margin>
             </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TextArea prefHeight="71.0" prefWidth="630.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <TextField prefHeight="31.0" prefWidth="630.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <TextField prefHeight="31.0" prefWidth="631.0" />
          </children>
       </HBox>
    </children>

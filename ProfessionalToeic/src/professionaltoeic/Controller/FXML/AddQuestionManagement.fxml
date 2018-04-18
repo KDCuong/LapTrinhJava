@@ -26,7 +26,7 @@
             <Label styleClass="Title" text="Question Management" />
          </children>
       </HBox>
-      <Button alignment="CENTER" mnemonicParsing="false" prefHeight="136.0" prefWidth="202.0" text="Listening" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#callListeningQuestion" prefHeight="136.0" prefWidth="202.0" text="Listening" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <graphic>
             <ImageView fitHeight="81.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -38,7 +38,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" prefHeight="136.0" prefWidth="202.0" text="Reading" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#callReadingQuestion" prefHeight="136.0" prefWidth="202.0" text="Reading" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <graphic>
             <ImageView fitHeight="78.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                <image>
