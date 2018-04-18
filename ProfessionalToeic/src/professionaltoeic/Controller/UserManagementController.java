@@ -32,13 +32,7 @@ public class UserManagementController implements Initializable {
     }    
     
     public void callAdministratorManagerment(ActionEvent event) throws IOException {        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Administrator");
-        stage.setScene(scene);
-        stage.show();
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "Administrator");
      }
 }
