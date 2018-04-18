@@ -47,5 +47,14 @@ public class UserDAO {
         dp.closeDB();
        return userlist ; 
     }
-    
+    public boolean getUser(String name, String password) throws ClassNotFoundException,SQLException{
+        String sql ="SELECT * FROM user WHERE user_name = '" + name+"'"+ " AND password = '"+password+"'";
+        ResultSet rs = dp.executeReader(sql);
+        while (rs.next()){
+        String namer =rs.getString("user_name");
+        if(namer.equals(name)){
+            return true;
+        }}
+        return false;
+    }
 }
