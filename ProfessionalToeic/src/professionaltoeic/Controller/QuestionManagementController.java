@@ -58,29 +58,27 @@ public class QuestionManagementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbType.getItems().addAll(
-                "Gramma",
+                "Listening",
                 "Reading",
-                "Listening" 
-        );
-        cbType.setValue("Gramma");
+                "Gramma",
+                "All"
+            );
+        //cbType.setValue("Gramma");
+        cbType.setPromptText("Input Type");
         loadQuestionData();
     }
     
     public void callAdministratorManagerment(ActionEvent event) throws IOException {        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Administrator");
-        stage.setScene(scene);
-        stage.show();
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "Administrator");
      }
       
     private ObservableList<Question> getQuestionList(){
-        try {
+        
+        try {  
             qDAO = new QuestionDAO();
-            List<Question> questionList = qDAO.getAllQuestions();
+            List<Question> questionList;
+            questionList = qDAO.getAllQuestions();                   
             list = FXCollections.observableList(questionList);
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
@@ -100,15 +98,36 @@ public class QuestionManagementController implements Initializable {
         tbQuestion.setItems(list);
     }
     
+    @FXML
+    private void getQuestionListByComboBox(){
+        
+        try {  
+            qDAO = new QuestionDAO();
+            List<Question> questionList;
+            String type = cbType.getSelectionModel().getSelectedItem().toString();
+            if (type.equals("Listening"))
+                questionList = qDAO.getAllQuestionsByComboBox(1);
+            else if (type.equals("Reading"))
+                questionList = qDAO.getAllQuestionsByComboBox(2);
+            else if (type.equals("Gramma"))
+                questionList = qDAO.getAllQuestionsByComboBox(3);
+            else
+                questionList = qDAO.getAllQuestions();                   
+            list = FXCollections.observableList(questionList);
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+            alert.showAndWait();
+        } catch (ClassNotFoundException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+            alert.showAndWait();
+        }
+        loadQuestionData();
+    }
+    
     public void callAddQuestionManagerment(ActionEvent event) throws IOException {        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/AddQuestionManagement.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("AddQuestionManagement");
-        stage.setScene(scene);
-        stage.show();
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "AddQuestionManagement");
      }
+    
     
 }

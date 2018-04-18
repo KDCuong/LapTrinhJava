@@ -20,19 +20,9 @@ public class Question {
     private String anwser2;
     private String anwser3;
     private String anwser4;
+    private String anwser;
 
-    public Question() {
-    }
-
-    public Question(String id, int type, String content, String flag) {
-        this.id = id;
-        this.type = type;
-        this.content = content;
-        this.flag = flag;
-    }
-
-    
-    public Question(String id, int type, String content, String audio, String image, String flag, String anwser1, String anwser2, String anwser3, String anwser4) {
+    public Question(String id, int type, String content, String audio, String image, String flag, String anwser1, String anwser2, String anwser3, String anwser4, String anwser) {
         this.id = id;
         this.type = type;
         this.content = content;
@@ -43,8 +33,38 @@ public class Question {
         this.anwser2 = anwser2;
         this.anwser3 = anwser3;
         this.anwser4 = anwser4;
+        this.anwser = anwser;
     }
 
+    public Question(int type, String audio, String image, String anwser1, String anwser2, String anwser3, String anwser4, String anwser) {
+        this.type = type;
+        this.audio = audio;
+        this.image = image;
+        this.anwser1 = anwser1;
+        this.anwser2 = anwser2;
+        this.anwser3 = anwser3;
+        this.anwser4 = anwser4;
+        this.anwser = anwser;
+    }
+
+    
+    public Question() {
+    }
+
+    public Question(String id, int type, String content, String flag) {
+        this.id = id;
+        this.type = type;
+        this.content = content;
+        this.flag = flag;
+    }
+
+    public String getAnwser() {
+        return anwser;
+    }
+
+    public void setAnwser(String anwser) {
+        this.anwser = anwser;
+    }
     
     public String getId() {
         return id;
