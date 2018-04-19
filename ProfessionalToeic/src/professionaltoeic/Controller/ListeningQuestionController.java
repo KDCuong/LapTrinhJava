@@ -34,15 +34,15 @@ import professionaltoeic.Model.Question;
  * @author cuong1312
  */
 public class ListeningQuestionController implements Initializable {
-    
+
     @FXML
     private TextArea txtContent;
     @FXML
     private TextField txtAudio;
     @FXML
     private TextField txtImage;
-     @FXML
-    private TextField txtExplane;
+    @FXML
+    private TextField txtExplain;
     @FXML
     private TextField txtAnwser1;
     @FXML
@@ -67,81 +67,190 @@ public class ListeningQuestionController implements Initializable {
     private Button btnUpdate;
     @FXML
     private Button btnDelete;
-    
+
     private QuestionDAO qDAO;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LoadData();
-    }    
-    
-    public void callAddQuestionManagerment(ActionEvent event) throws IOException {        
+    }
+
+    public void callAddQuestionManagerment(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "AddQuestionManagement");
-     }
-    
+    }
+
     @FXML
-    public void addListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException{
+    public void addListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         qDAO = new QuestionDAO();
         String rightAnswer;
         RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
         String selectedValue = selectedRB.getText();
-        if (selectedValue.equals("A ."))
-            rightAnswer = txtAnwser1.getText();
-        else if (selectedValue.equals("B ."))
-            rightAnswer = txtAnwser2.getText();
-        else if (selectedValue.equals("C ."))
-            rightAnswer = txtAnwser3.getText();
-        else
-            rightAnswer = txtAnwser4.getText();
-            
-        Question question = new Question(1, txtAudio.getText(), txtImage.getText(), txtAnwser1.getText(), txtAnwser2.getText(), 
-                                                                txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer);
-        
-        if (qDAO.insertListeningQuestion(question)){
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-           alert.setTitle("Success");
-           alert.setHeaderText("Adding question successfull");
-           alert.setContentText(null);
-           alert.getButtonTypes();
-           alert.showAndWait();
-           
-           SceneMovement sm = new SceneMovement();
-           sm.callNewScene(event, "AddQuestionManagement");
+        switch (selectedValue) {
+            case "A .":
+                rightAnswer = txtAnwser1.getText();
+                break;
+            case "B .":
+                rightAnswer = txtAnwser2.getText();
+                break;
+            case "C .":
+                rightAnswer = txtAnwser3.getText();
+                break;
+            default:
+                rightAnswer = txtAnwser4.getText();
+                break;
         }
-        else{
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Error");
-           alert.setHeaderText("Please recheck your question");
-           alert.setContentText(null);
-           alert.getButtonTypes();
-           alert.show();
+
+        Question question = new Question(1, txtAudio.getText(), txtImage.getText(), txtAnwser1.getText(), txtAnwser2.getText(),
+                txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText());
+
+        if (qDAO.insertListeningQuestion(question)) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Adding question successfull");
+            alert.setContentText(null);
+            alert.getButtonTypes();
+            alert.showAndWait();
+
+            SceneMovement sm = new SceneMovement();
+            sm.callNewScene(event, "AddQuestionManagement");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Please recheck your question");
+            alert.setContentText(null);
+            alert.getButtonTypes();
+            alert.show();
         }
     }
-    
-    private void LoadData(){
+
+    @FXML
+    public void updateListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+        qDAO = new QuestionDAO();
+        if (QuestionDAO.getQuestion().getFlag().equals("Deleted")) {
+            if (qDAO.reverseQuestion(QuestionDAO.getQuestion().getId())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Your question now up to date");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.showAndWait();
+
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "QuestionManagement");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please retry in a minute later");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.show();
+            }
+        } else {
+            String rightAnswer;
+            RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
+            String selectedValue = selectedRB.getText();
+            switch (selectedValue) {
+                case "A .":
+                    rightAnswer = txtAnwser1.getText();
+                    break;
+                case "B .":
+                    rightAnswer = txtAnwser2.getText();
+                    break;
+                case "C .":
+                    rightAnswer = txtAnwser3.getText();
+                    break;
+                default:
+                    rightAnswer = txtAnwser4.getText();
+                    break;
+            }
+
+            Question question = new Question(QuestionDAO.getQuestion().getId(), 1, "",
+                    txtAudio.getText(), txtImage.getText(), QuestionDAO.getQuestion().getFlag(), txtAnwser1.getText(), txtAnwser2.getText(),
+                    txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText(), 0);
+
+            if (qDAO.updateListeningQuestion(question)) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Update question successfull");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.showAndWait();
+
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "QuestionManagement");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please recheck your question");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.show();
+            }
+        }
+    }
+
+    @FXML
+    public void deleteQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+        qDAO = new QuestionDAO();
+
+        if (QuestionDAO.getQuestion().getId() != 0) {
+            if (qDAO.deleteQuestion(QuestionDAO.getQuestion().getId())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Delete question successfull");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.showAndWait();
+
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "QuestionManagement");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Retry in a mininute later");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.show();
+            }
+        }
+    }
+
+    private void LoadData() {
         txtAudio.setText(QuestionDAO.getQuestion().getAudio());
         txtImage.setText(QuestionDAO.getQuestion().getImage());
         txtAnwser1.setText(QuestionDAO.getQuestion().getAnswer1());
         txtAnwser2.setText(QuestionDAO.getQuestion().getAnswer2());
         txtAnwser3.setText(QuestionDAO.getQuestion().getAnswer3());
         txtAnwser4.setText(QuestionDAO.getQuestion().getAnswer4());
-        
-        if (QuestionDAO.getQuestion().getAnswer() == null){
+        txtExplain.setText(QuestionDAO.getQuestion().getExplain());
+
+        if (QuestionDAO.getQuestion().getAnswer() == null) {
             btnUpdate.setVisible(false);
             btnDelete.setVisible(false);
-        }
-        else{
-            if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser1.getText()))
+        } else {
+            if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser1.getText())) {
                 rdAnswer1.setSelected(true);
-            else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser2.getText()))
+            } else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser2.getText())) {
                 rdAnswer2.setSelected(true);
-            else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser3.getText()))
+            } else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser3.getText())) {
                 rdAnswer3.setSelected(true);
-            else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser4.getText()))
+            } else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser4.getText())) {
                 rdAnswer4.setSelected(true);
+            }
             btnAdd.setVisible(false);
+
+            if (QuestionDAO.getQuestion().getFlag().equals("Deleted")) {
+                btnDelete.setVisible(false);
+                txtImage.setEditable(false);
+                txtAudio.setEditable(false);
+                txtAnwser1.setEditable(false);
+                txtAnwser2.setEditable(false);
+                txtAnwser3.setEditable(false);
+                txtAnwser4.setEditable(false);
+                txtExplain.setEditable(false);
+            }
         }
-            
+
     }
 }

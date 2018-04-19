@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="774.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/listeningquestion.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.ListeningQuestionController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="804.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/listeningquestion.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.ReadingQuestionController">
    <children>
       <HBox alignment="CENTER" prefHeight="91.0" prefWidth="746.0" GridPane.columnSpan="2">
          <children>
@@ -22,84 +22,84 @@
             <Insets left="15.0" />
          </GridPane.margin>
       </Label>
-      <VBox prefHeight="228.0" prefWidth="746.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+      <VBox prefHeight="228.0" prefWidth="746.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" selected="true" text="A ." textFill="WHITE">
+                  <RadioButton fx:id="rdAnswer1" mnemonicParsing="false" selected="true" text="A ." textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <padding>
-                        <Insets left="40.0" />
+                        <Insets left="65.0" />
                      </padding>
                      <toggleGroup>
                         <ToggleGroup fx:id="GroupAnswer" />
                      </toggleGroup>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0">
+                  <TextField fx:id="txtAnwser1" prefHeight="43.0" prefWidth="630.0">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="17.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="B ." textFill="WHITE" toggleGroup="$GroupAnswer">
+                  <RadioButton fx:id="rdAnswer2" mnemonicParsing="false" text="B ." textFill="WHITE" toggleGroup="$GroupAnswer">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <padding>
-                        <Insets left="40.0" />
+                        <Insets left="65.0" />
                      </padding>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0">
+                  <TextField fx:id="txtAnwser2" prefHeight="43.0" prefWidth="630.0">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="17.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="C ." textFill="WHITE" toggleGroup="$GroupAnswer">
+                  <RadioButton fx:id="rdAnswer3" mnemonicParsing="false" text="C ." textFill="WHITE" toggleGroup="$GroupAnswer">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <padding>
-                        <Insets left="40.0" />
+                        <Insets left="65.0" />
                      </padding>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0">
+                  <TextField fx:id="txtAnwser3" prefHeight="43.0" prefWidth="630.0">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="17.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="746.0">
                <children>
-                  <RadioButton mnemonicParsing="false" text="D ." textFill="WHITE" toggleGroup="$GroupAnswer">
+                  <RadioButton fx:id="rdAnswer4" mnemonicParsing="false" text="D ." textFill="WHITE" toggleGroup="$GroupAnswer">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                      <padding>
-                        <Insets left="40.0" />
+                        <Insets left="65.0" />
                      </padding>
                   </RadioButton>
-                  <TextField prefHeight="43.0" prefWidth="630.0">
+                  <TextField fx:id="txtAnwser4" prefHeight="43.0" prefWidth="630.0">
                      <HBox.margin>
-                        <Insets left="5.0" />
+                        <Insets left="14.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="89.0" prefWidth="774.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+      <HBox alignment="CENTER_RIGHT" prefHeight="89.0" prefWidth="774.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
          <children>
-            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonAdd" text="Add">
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addQuestion" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonAdd" text="Add">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -114,7 +114,7 @@
                   <Insets bottom="5.0" right="40.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonDel" text="Delete">
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteQuestion" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonDel" text="Delete">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -129,7 +129,7 @@
                   <Insets bottom="5.0" right="40.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonUpdate" text="Update">
+            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updateQuestion" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonUpdate" text="Update">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -164,35 +164,49 @@
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="654.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <TextArea prefHeight="69.0" prefWidth="630.0" />
+            <TextArea fx:id="txtContent" prefHeight="69.0" prefWidth="630.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="774.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
-            <Label text="Paragraph ID:">
+            <Label fx:id="lblPID" text="Paragraph ID:">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
                <padding>
-                  <Insets left="15.0" />
+                  <Insets left="10.0" />
                </padding>
             </Label>
-            <ComboBox prefWidth="150.0">
+            <TextField fx:id="txtPID" prefHeight="31.0" prefWidth="630.0">
                <HBox.margin>
-                  <Insets left="5.0" />
+                  <Insets left="17.0" />
                </HBox.margin>
-            </ComboBox>
+            </TextField>
+         </children>
+      </HBox>
+      <Label text="Explain Path" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <TextField fx:id="txtExplain" prefHeight="31.0" prefWidth="631.0" />
          </children>
       </HBox>
    </children>
    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="122.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="652.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="121.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="657.0" minWidth="10.0" prefWidth="653.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="107.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="139.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="312.0" minHeight="10.0" prefHeight="240.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="228.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
    </rowConstraints>

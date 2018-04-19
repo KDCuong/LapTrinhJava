@@ -53,7 +53,25 @@ public class AddQuestionManagementController implements Initializable {
      }
     
      public void callReadingQuestion(ActionEvent event) throws IOException {
+        Question question = new Question();
+        QuestionDAO.setQuestion(question);
+        QuestionDAO.setFlag(2);
+         
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "ReadingQuestion");
+     }
+     
+     public void callGrammarQuestion(ActionEvent event) throws IOException {
+        Question question = new Question();
+        QuestionDAO.setQuestion(question);
+        QuestionDAO.setFlag(3);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/ReadingQuestion.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("GrammarQuestion");
+        stage.setScene(scene);
+        stage.show();
      }
 }
