@@ -25,8 +25,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.Model.Question;
@@ -43,18 +45,18 @@ public class QuestionManagementController implements Initializable {
      */
     @FXML
     private Button btnUser;
-    
+
     @FXML
     private ComboBox cbType;
-    
+
     public TableView<Question> tbQuestion;
-    public TableColumn<Question,String> colId;
-    public TableColumn<Question,String> colType;
-    public TableColumn<Question,String> colContent;
-    public TableColumn<Question,String> colStatus;
+    public TableColumn<Question, String> colId;
+    public TableColumn<Question, String> colType;
+    public TableColumn<Question, String> colContent;
+    public TableColumn<Question, String> colStatus;
     private ObservableList<Question> list = getQuestionList();
     private QuestionDAO qDAO;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cbType.getItems().addAll(
@@ -62,72 +64,96 @@ public class QuestionManagementController implements Initializable {
                 "Reading",
                 "Gramma",
                 "All"
-            );
+        );
         //cbType.setValue("Gramma");
         cbType.setPromptText("Input Type");
         loadQuestionData();
     }
-    
-    public void callAdministratorManagerment(ActionEvent event) throws IOException {        
+
+    public void callAdministratorManagerment(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "Administrator");
-     }
-      
-    private ObservableList<Question> getQuestionList(){
-        
-        try {  
+    }
+
+    private ObservableList<Question> getQuestionList() {
+
+        try {
             qDAO = new QuestionDAO();
             List<Question> questionList;
-            questionList = qDAO.getAllQuestions();                   
+            questionList = qDAO.getAllQuestions();
             list = FXCollections.observableList(questionList);
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
             alert.showAndWait();
         } catch (ClassNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
             alert.showAndWait();
         }
         return list;
     }
-    
-    public void loadQuestionData(){
+
+    public void loadQuestionData() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colContent.setCellValueFactory(new PropertyValueFactory<>("content"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("flag"));
         tbQuestion.setItems(list);
     }
-    
+
     @FXML
-    private void getQuestionListByComboBox(){
-        
-        try {  
+    private void getQuestionListByComboBox() {
+
+        try {
             qDAO = new QuestionDAO();
             List<Question> questionList;
             String type = cbType.getSelectionModel().getSelectedItem().toString();
-            if (type.equals("Listening"))
+            if (type.equals("Listening")) {
                 questionList = qDAO.getAllQuestionsByComboBox(1);
-            else if (type.equals("Reading"))
+            } else if (type.equals("Reading")) {
                 questionList = qDAO.getAllQuestionsByComboBox(2);
-            else if (type.equals("Gramma"))
+            } else if (type.equals("Gramma")) {
                 questionList = qDAO.getAllQuestionsByComboBox(3);
-            else
-                questionList = qDAO.getAllQuestions();                   
+            } else {
+                questionList = qDAO.getAllQuestions();
+            }
             list = FXCollections.observableList(questionList);
         } catch (SQLException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
             alert.showAndWait();
         } catch (ClassNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage(),new ButtonType("OK"));
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
             alert.showAndWait();
         }
         loadQuestionData();
     }
-    
-    public void callAddQuestionManagerment(ActionEvent event) throws IOException {        
+
+    public void callAddQuestionManagerment(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "AddQuestionManagement");
-     }
-    
-    
+    }
+
+    @FXML
+    public void callUpdateQuestion(MouseEvent event) throws IOException {
+            Question row = tbQuestion.getSelectionModel().getSelectedItem();
+            Question question = new Question();
+            try {
+                qDAO = new QuestionDAO();
+                question = qDAO.getQuestionsByID(row.getId());
+                QuestionDAO.setQuestion(question);
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
+                alert.showAndWait();
+            } catch (ClassNotFoundException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
+                alert.showAndWait();
+            }
+            if (question.getType() == 1){
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "ListeningQuestion");
+            }
+            else{
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "ReadingQuestion");
+            }     
+        }
 }

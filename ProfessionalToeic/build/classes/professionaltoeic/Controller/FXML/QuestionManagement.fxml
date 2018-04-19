@@ -44,7 +44,7 @@
       </VBox>
    </top>
    <center>
-      <TableView fx:id="tbQuestion" prefHeight="408.0" prefWidth="813.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tbQuestion" onMouseClicked="#callUpdateQuestion" prefHeight="408.0" prefWidth="813.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="colType" prefWidth="86.0" text="TYPE" />

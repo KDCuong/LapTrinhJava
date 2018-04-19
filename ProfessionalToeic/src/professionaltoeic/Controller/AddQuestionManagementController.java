@@ -15,6 +15,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import professionaltoeic.DAO.QuestionDAO;
+import professionaltoeic.Model.Question;
 
 /**
  * FXML Controller class
@@ -42,25 +44,16 @@ public class AddQuestionManagementController implements Initializable {
         stage.show();
      }
     
-    public void callListeningQuestion(ActionEvent event) throws IOException {        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/ListeningQuestion.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("ListeningQuestion");
-        stage.setScene(scene);
-        stage.show();
+    public void callListeningQuestion(ActionEvent event) throws IOException {
+        Question question = new Question();
+        QuestionDAO.setQuestion(question);
+        
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "ListeningQuestion");
      }
     
-     public void callReadingQuestion(ActionEvent event) throws IOException {        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/ReadingQuestion.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("ReadingQuestion");
-        stage.setScene(scene);
-        stage.show();
+     public void callReadingQuestion(ActionEvent event) throws IOException {
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "ReadingQuestion");
      }
 }
