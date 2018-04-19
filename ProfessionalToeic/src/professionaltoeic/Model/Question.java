@@ -10,6 +10,7 @@ package professionaltoeic.Model;
  * @author cuong1312
  */
 public class Question {
+
     private int id;
     private int type;
     private String content;
@@ -21,8 +22,44 @@ public class Question {
     private String answer3;
     private String answer4;
     private String answer;
+    private String explain;
+    private int paragraph_id;
 
-    public Question(int id, int type, String content, String audio, String image, String flag, String answer1, String answer2, String answer3, String answer4, String answer) {
+    public Question() {
+    }
+
+    public Question(int id, int type, String content, String flag) {
+        this.id = id;
+        this.type = type;
+        this.content = content;
+        this.flag = flag;
+    }
+
+    public Question(int type, String content, String answer1, String answer2, String answer3, String answer4, String answer, String explain, int paragraph_id) {
+        this.type = type;
+        this.content = content;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.answer = answer;
+        this.explain = explain;
+        this.paragraph_id = paragraph_id;
+    }
+    
+    public Question(int type, String audio, String image, String answer1, String answer2, String answer3, String answer4, String answer, String explain) {
+        this.type = type;
+        this.audio = audio;
+        this.image = image;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.answer = answer;
+        this.explain = explain;
+    }
+
+    public Question(int id, int type, String content, String audio, String image, String flag, String answer1, String answer2, String answer3, String answer4, String answer, String explain, int paragraph_id) {
         this.id = id;
         this.type = type;
         this.content = content;
@@ -34,7 +71,11 @@ public class Question {
         this.answer3 = answer3;
         this.answer4 = answer4;
         this.answer = answer;
+        this.explain = explain;
+        this.paragraph_id = paragraph_id;
     }
+
+    
 
     public int getId() {
         return id;
@@ -44,26 +85,20 @@ public class Question {
         this.id = id;
     }
 
-    public Question(int type, String audio, String image, String answer1, String answer2, String answer3, String answer4, String answer) {
-        this.type = type;
-        this.audio = audio;
-        this.image = image;
-        this.answer1 = answer1;
-        this.answer2 = answer2;
-        this.answer3 = answer3;
-        this.answer4 = answer4;
-        this.answer = answer;
+    public String getExplain() {
+        return explain;
     }
 
-    
-    public Question() {
+    public void setExplain(String explain) {
+        this.explain = explain;
     }
 
-    public Question(int id, int type, String content, String flag) {
-        this.id = id;
-        this.type = type;
-        this.content = content;
-        this.flag = flag;
+    public int getParagraph_id() {
+        return paragraph_id;
+    }
+
+    public void setParagraph_id(int paragraph_id) {
+        this.paragraph_id = paragraph_id;
     }
 
     public String getAnswer1() {
@@ -105,7 +140,6 @@ public class Question {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-    
 
     public int getType() {
         return type;
@@ -149,7 +183,7 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" + "id=" + id + ", type=" + type + ", content=" + content + ", audio=" + audio + ", image=" + image + ", flag=" + flag + ", answer1=" + answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer=" + answer + '}';
+        return "Question{" + "id=" + id + ", type=" + type + ", content=" + content + ", audio=" + audio + ", image=" + image + ", flag=" + flag + ", answer1=" + answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer=" + answer + ", explain=" + explain + ", paragraph_id=" + paragraph_id + '}';
     }
 
 }

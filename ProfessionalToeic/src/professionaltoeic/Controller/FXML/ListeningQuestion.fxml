@@ -45,7 +45,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label text="Explane Path" GridPane.rowIndex="3">
+      <Label text="Explain Path" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
@@ -118,7 +118,7 @@
                   </RadioButton>
                   <TextField fx:id="txtAnwser4" prefHeight="43.0" prefWidth="630.0">
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="16.0" />
                      </HBox.margin></TextField>
                </children>
             </HBox>
@@ -141,7 +141,7 @@
                   <Insets bottom="5.0" right="40.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnDelete" mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonDel" text="Delete">
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteQuestion" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonDel" text="Delete">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -156,7 +156,7 @@
                   <Insets bottom="5.0" right="40.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnUpdate" mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonUpdate" text="Update">
+            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updateListeningQuestion" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonUpdate" text="Update">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -200,7 +200,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
-            <TextField fx:id="txtExplane" prefHeight="31.0" prefWidth="631.0" />
+            <TextField fx:id="txtExplain" prefHeight="31.0" prefWidth="631.0" />
          </children>
       </HBox>
    </children>

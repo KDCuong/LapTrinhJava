@@ -59,14 +59,6 @@ public class QuestionManagementController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbType.getItems().addAll(
-                "Listening",
-                "Reading",
-                "Gramma",
-                "All"
-        );
-        //cbType.setValue("Gramma");
-        cbType.setPromptText("Input Type");
         loadQuestionData();
     }
 
@@ -93,6 +85,13 @@ public class QuestionManagementController implements Initializable {
     }
 
     public void loadQuestionData() {
+        cbType.getItems().addAll(
+                "Listening",
+                "Reading",
+                "Grammar",
+                "All"
+        );
+        cbType.setPromptText("Input Type");
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colContent.setCellValueFactory(new PropertyValueFactory<>("content"));
@@ -111,7 +110,7 @@ public class QuestionManagementController implements Initializable {
                 questionList = qDAO.getAllQuestionsByComboBox(1);
             } else if (type.equals("Reading")) {
                 questionList = qDAO.getAllQuestionsByComboBox(2);
-            } else if (type.equals("Gramma")) {
+            } else if (type.equals("Grammar")) {
                 questionList = qDAO.getAllQuestionsByComboBox(3);
             } else {
                 questionList = qDAO.getAllQuestions();
@@ -147,13 +146,27 @@ public class QuestionManagementController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
                 alert.showAndWait();
             }
-            if (question.getType() == 1){
-                SceneMovement sm = new SceneMovement();
-                sm.callNewScene(event, "ListeningQuestion");
-            }
-            else{
-                SceneMovement sm = new SceneMovement();
-                sm.callNewScene(event, "ReadingQuestion");
-            }     
+        switch (question.getType()) {
+            case 1:
+                {
+                    SceneMovement sm = new SceneMovement();
+                    sm.callNewScene(event, "ListeningQuestion");
+                    break;
+                }
+            case 2:
+                {
+                    SceneMovement sm = new SceneMovement();
+                    sm.callNewScene(event, "ReadingQuestion");
+                    QuestionDAO.setFlag(2);
+                    break;
+                }
+            default:
+                {
+                    SceneMovement sm = new SceneMovement();
+                    sm.callNewScene(event, "ReadingQuestion");
+                    QuestionDAO.setFlag(3);
+                    break;
+                }
+        }
         }
 }
