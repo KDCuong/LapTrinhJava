@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -28,4 +29,16 @@ public class SceneMovement {
         stage.setScene(scene);
         stage.show();
      }
+
+    void callNewScene(MouseEvent event, String sceneName) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setResizable(false);
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/" + sceneName + ".fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle(sceneName);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
 }

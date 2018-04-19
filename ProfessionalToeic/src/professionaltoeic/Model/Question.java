@@ -10,69 +10,102 @@ package professionaltoeic.Model;
  * @author cuong1312
  */
 public class Question {
-    private String id;
+    private int id;
     private int type;
     private String content;
     private String audio;
     private String image;
     private String flag;
-    private String anwser1;
-    private String anwser2;
-    private String anwser3;
-    private String anwser4;
-    private String anwser;
+    private String answer1;
+    private String answer2;
+    private String answer3;
+    private String answer4;
+    private String answer;
 
-    public Question(String id, int type, String content, String audio, String image, String flag, String anwser1, String anwser2, String anwser3, String anwser4, String anwser) {
+    public Question(int id, int type, String content, String audio, String image, String flag, String answer1, String answer2, String answer3, String answer4, String answer) {
         this.id = id;
         this.type = type;
         this.content = content;
         this.audio = audio;
         this.image = image;
         this.flag = flag;
-        this.anwser1 = anwser1;
-        this.anwser2 = anwser2;
-        this.anwser3 = anwser3;
-        this.anwser4 = anwser4;
-        this.anwser = anwser;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.answer = answer;
     }
 
-    public Question(int type, String audio, String image, String anwser1, String anwser2, String anwser3, String anwser4, String anwser) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Question(int type, String audio, String image, String answer1, String answer2, String answer3, String answer4, String answer) {
         this.type = type;
         this.audio = audio;
         this.image = image;
-        this.anwser1 = anwser1;
-        this.anwser2 = anwser2;
-        this.anwser3 = anwser3;
-        this.anwser4 = anwser4;
-        this.anwser = anwser;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.answer = answer;
     }
 
     
     public Question() {
     }
 
-    public Question(String id, int type, String content, String flag) {
+    public Question(int id, int type, String content, String flag) {
         this.id = id;
         this.type = type;
         this.content = content;
         this.flag = flag;
     }
 
-    public String getAnwser() {
-        return anwser;
+    public String getAnswer1() {
+        return answer1;
     }
 
-    public void setAnwser(String anwser) {
-        this.anwser = anwser;
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
+
+    public String getAnswer3() {
+        return answer3;
+    }
+
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
+    }
+
+    public String getAnswer4() {
+        return answer4;
+    }
+
+    public void setAnswer4(String answer4) {
+        this.answer4 = answer4;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
     
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public int getType() {
         return type;
@@ -114,41 +147,9 @@ public class Question {
         this.flag = flag;
     }
 
-    public String getAnwser1() {
-        return anwser1;
-    }
-
-    public void setAnwser1(String anwser1) {
-        this.anwser1 = anwser1;
-    }
-
-    public String getAnwser2() {
-        return anwser2;
-    }
-
-    public void setAnwser2(String anwser2) {
-        this.anwser2 = anwser2;
-    }
-
-    public String getAnwser3() {
-        return anwser3;
-    }
-
-    public void setAnwser3(String anwser3) {
-        this.anwser3 = anwser3;
-    }
-
-    public String getAnwser4() {
-        return anwser4;
-    }
-
-    public void setAnwser4(String anwser4) {
-        this.anwser4 = anwser4;
-    }
-
     @Override
     public String toString() {
-        return "Question{" + "id=" + id + ", type=" + type + ", content=" + content + ", audio=" + audio + ", image=" + image + ", flag=" + flag + ", anwser1=" + anwser1 + ", anwser2=" + anwser2 + ", anwser3=" + anwser3 + ", anwser4=" + anwser4 + '}';
+        return "Question{" + "id=" + id + ", type=" + type + ", content=" + content + ", audio=" + audio + ", image=" + image + ", flag=" + flag + ", answer1=" + answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer=" + answer + '}';
     }
-    
+
 }

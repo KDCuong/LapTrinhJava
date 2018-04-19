@@ -41,6 +41,8 @@ public class ListeningQuestionController implements Initializable {
     private TextField txtAudio;
     @FXML
     private TextField txtImage;
+     @FXML
+    private TextField txtExplane;
     @FXML
     private TextField txtAnwser1;
     @FXML
@@ -51,12 +53,26 @@ public class ListeningQuestionController implements Initializable {
     private TextField txtAnwser4;
     @FXML
     private ToggleGroup GroupAnswer;
+    @FXML
+    private RadioButton rdAnswer1;
+    @FXML
+    private RadioButton rdAnswer2;
+    @FXML
+    private RadioButton rdAnswer3;
+    @FXML
+    private RadioButton rdAnswer4;
+    @FXML
+    private Button btnAdd;
+    @FXML
+    private Button btnUpdate;
+    @FXML
+    private Button btnDelete;
     
     private QuestionDAO qDAO;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        LoadData();
     }    
     
     public void callAddQuestionManagerment(ActionEvent event) throws IOException {        
@@ -103,4 +119,29 @@ public class ListeningQuestionController implements Initializable {
         }
     }
     
+    private void LoadData(){
+        txtAudio.setText(QuestionDAO.getQuestion().getAudio());
+        txtImage.setText(QuestionDAO.getQuestion().getImage());
+        txtAnwser1.setText(QuestionDAO.getQuestion().getAnswer1());
+        txtAnwser2.setText(QuestionDAO.getQuestion().getAnswer2());
+        txtAnwser3.setText(QuestionDAO.getQuestion().getAnswer3());
+        txtAnwser4.setText(QuestionDAO.getQuestion().getAnswer4());
+        
+        if (QuestionDAO.getQuestion().getAnswer() == null){
+            btnUpdate.setVisible(false);
+            btnDelete.setVisible(false);
+        }
+        else{
+            if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser1.getText()))
+                rdAnswer1.setSelected(true);
+            else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser2.getText()))
+                rdAnswer2.setSelected(true);
+            else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser3.getText()))
+                rdAnswer3.setSelected(true);
+            else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser4.getText()))
+                rdAnswer4.setSelected(true);
+            btnAdd.setVisible(false);
+        }
+            
+    }
 }

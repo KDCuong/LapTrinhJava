@@ -28,41 +28,41 @@ import professionaltoeic.Model.User;
  *
  * @author curly
  */
-public class LoginController  implements Initializable  {
+public class LoginController implements Initializable {
 
     @FXML
-    private Button btnR ;
-     @FXML
-    private TextField tfLogin ;
-      @FXML
-    private TextField tfPassword;    /**
+    private Button btnR;
+    @FXML
+    private TextField tfLogin;
+    @FXML
+    private TextField tfPassword;
+    /**
      * Initializes the controller class.
      */
     private UserDAO uDAO;
-    private User user ;
-    public String s="asdasd";
-    
-    
+    private User user;
+
     @FXML
-     private void ButtonAction(ActionEvent event) throws IOException {
-         Stage stage = new Stage();
+    private void ButtonAction(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("FXML/Register.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.show();
         System.out.println("You clicked me!");
     }
+
     @FXML
     private void ButtonLogin(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         uDAO = new UserDAO();
-        String name=tfLogin.getText();
+        String name = tfLogin.getText();
         String password = tfPassword.getText();
-        user =uDAO.getUser(name);
-        if(user!=null){
-            if(user.getName().equals(name) && user.getPassword().equals(password) ){
-                if(user.getType()==1){
+        user = uDAO.getUser(name);
+        if (user != null) {
+            if (user.getName().equals(name) && user.getPassword().equals(password)) {
+                if (user.getType() == 1) {
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.hide();
                     stage.setResizable(false);
@@ -72,46 +72,31 @@ public class LoginController  implements Initializable  {
                     stage.setScene(scene);
                     stage.show();
                 }
-                    UserDAO.setLoginUser(user);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.hide();
-                    stage.setResizable(false);
-                    Parent root = FXMLLoader.load(getClass().getResource("FXML/MainUser.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setTitle("User");
-                    stage.setScene(scene);
-                    stage.show();
+                UserDAO.setLoginUser(user);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.hide();
+                stage.setResizable(false);
+                Parent root = FXMLLoader.load(getClass().getResource("FXML/MainUser.fxml"));
+                Scene scene = new Scene(root);
+                stage.setTitle("User");
+                stage.setScene(scene);
+                stage.show();
+            } else {
+                System.out.println("ngu học");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Lỗi rồi");
+                alert.setHeaderText("Đề nghị kiểm tra Id và Password");
+                alert.setContentText(null);
+                alert.getButtonTypes();
+                alert.show();
             }
-            else
-       {
-           System.out.println("ngu học");
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-           alert.setTitle("Lỗi rồi");
-           alert.setHeaderText("Đề nghị kiểm tra Id và Password");
-           alert.setContentText(null);
-           alert.getButtonTypes();
-           alert.show();
-       }
         }
-//            List<Question> questionList = qDAO.getAllQuestions();
-//            list = FXCollections.observableList(questionList);
-//        if(uDAO.getUser(name))
-//        {
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.hide();
-//        stage.setResizable(false);
-//        Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
-//        Scene scene = new Scene(root);
-//        stage.setTitle("Administrator");
-//        stage.setScene(scene);
-//        stage.show();
-//       }
-       
+
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-   
+    }
+
 }
