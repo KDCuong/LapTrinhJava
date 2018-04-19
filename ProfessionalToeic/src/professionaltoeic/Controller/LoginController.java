@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import professionaltoeic.DAO.UserDAO;
+import professionaltoeic.Model.User;
 
 /**
  * FXML Controller class
@@ -38,6 +39,10 @@ public class LoginController  implements Initializable  {
      * Initializes the controller class.
      */
     private UserDAO uDAO;
+    private User user ;
+    public String s="asdasd";
+    
+    
     @FXML
      private void ButtonAction(ActionEvent event) throws IOException {
          Stage stage = new Stage();
@@ -54,18 +59,30 @@ public class LoginController  implements Initializable  {
         uDAO = new UserDAO();
         String name=tfLogin.getText();
         String password = tfPassword.getText();
-        if(uDAO.getUser(name , password ))
-        {
-          Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Administrator");
-        stage.setScene(scene);
-        stage.show();
-       }
-       else
+        user =uDAO.getUser(name);
+        if(user!=null){
+            if(user.getName().equals(name) && user.getPassword().equals(password) ){
+                if(user.getType()==1){
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.hide();
+                    stage.setResizable(false);
+                    Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setTitle("Administrator");
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                    UserDAO.setLoginUser(user);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.hide();
+                    stage.setResizable(false);
+                    Parent root = FXMLLoader.load(getClass().getResource("FXML/MainUser.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setTitle("User");
+                    stage.setScene(scene);
+                    stage.show();
+            }
+            else
        {
            System.out.println("ngu học");
            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -75,7 +92,23 @@ public class LoginController  implements Initializable  {
            alert.getButtonTypes();
            alert.show();
        }
+        }
+//            List<Question> questionList = qDAO.getAllQuestions();
+//            list = FXCollections.observableList(questionList);
+//        if(uDAO.getUser(name))
+//        {
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.hide();
+//        stage.setResizable(false);
+//        Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
+//        Scene scene = new Scene(root);
+//        stage.setTitle("Administrator");
+//        stage.setScene(scene);
+//        stage.show();
+//       }
+       
     }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

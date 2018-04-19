@@ -27,7 +27,7 @@ public class DataProvider {
 
     public DataProvider() throws ClassNotFoundException,SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/professionaltoeic", "root", "24635701");
+        cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/professionaltoeic", "root", "");
     }
      
      public ResultSet executeReader(String sql) throws SQLException, ClassNotFoundException {

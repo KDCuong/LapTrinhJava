@@ -17,8 +17,9 @@ public class User {
     private int type;
     private String email;
     private String flag;
+    private int point;
 
-    public User(int id, String name, String fullname, String password, int type, String email, String flag) {
+    public User(int id, String name, String fullname, String password, int type, String email, String flag, int point) {
         this.id = id;
         this.name = name;
         this.fullname = fullname;
@@ -26,7 +27,18 @@ public class User {
         this.type = type;
         this.email = email;
         this.flag = flag;
+        this.point = point;
     }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    
 
     public String getFullname() {
         return fullname;
