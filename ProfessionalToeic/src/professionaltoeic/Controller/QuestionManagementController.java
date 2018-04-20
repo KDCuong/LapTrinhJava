@@ -44,9 +44,6 @@ public class QuestionManagementController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private Button btnUser;
-
-    @FXML
     private ComboBox cbType;
 
     public TableView<Question> tbQuestion;

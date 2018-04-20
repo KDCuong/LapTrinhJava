@@ -51,77 +51,66 @@ public class RegisterController implements Initializable {
     private TextField tfName;
     @FXML
     private TextField tfPw;
-    private int i,tid,tpw;
+    private int i, tid, tpw;
     private UserDAO uDAO;
+
     /**
      * Initializes the controller class.
      */
     @FXML
     private void ButtonAction(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/Login.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
+       
+         SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "Login");
     }
 
     @FXML
-    private void TfId(KeyEvent event) throws ClassNotFoundException, SQLException{
+    private void TfId(KeyEvent event) throws ClassNotFoundException, SQLException {
         uDAO = new UserDAO();
         String id = tfId.getText();
-        User user =uDAO.getUser(id);
-    if(user!=null)
-    {
-        lbId.setText("Id đã có người sử dụng");
-        tid=0;
-    }
-    else
-    {
-        lbId.setText("Bạn có thể sử dụng ID này");
-        tid=1;
-    }
-    }
-    @FXML
-    private void TfPw(KeyEvent event){
-        i=tfPw.getText().length();
-       if(i<=8 && i>=6)
-        {
-            lbPw.setText("Bạn có thể sử dụng password này");
-            tpw=1;
-            
+        User user = uDAO.getUser(id);
+        if (user != null) {
+            lbId.setText("Id đã có người sử dụng");
+            tid = 0;
+        } else {
+            lbId.setText("Bạn có thể sử dụng ID này");
+            tid = 1;
         }
-        else
-       {
-            lbPw.setText("Đặt pass từ 6-8 kí tự ");
-            tpw=0;
-       }
     }
+
     @FXML
-    private void ButtonRegister(ActionEvent event) throws ClassNotFoundException, SQLException{
-       if(tid==1 && tpw==1 )
-       {
-           System.out.println("chuẩn");
-           uDAO = new UserDAO();
-           uDAO.insertUser(tfId.getText(), tfPw.getText(), tfName.getText(), tfEmail.getText());
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-           alert.setTitle("Thành công");
-           alert.setHeaderText("Đăng Ký Thành công");
-           alert.setContentText(null);
-           alert.getButtonTypes();
-           alert.show();
-       }
-       else
-       {
-           System.out.println("ngu học");
-           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-           alert.setTitle("Lỗi rồi");
-           alert.setHeaderText("Đề nghị kiểm tra Id và Password");
-           alert.setContentText(null);
-           alert.getButtonTypes();
-           alert.show();
-       }
+    private void TfPw(KeyEvent event) {
+        i = tfPw.getText().length();
+        if (i <= 8 && i >= 6) {
+            lbPw.setText("Bạn có thể sử dụng password này");
+            tpw = 1;
+
+        } else {
+            lbPw.setText("Đặt pass từ 6-8 kí tự ");
+            tpw = 0;
+        }
+    }
+
+    @FXML
+    private void ButtonRegister(ActionEvent event) throws ClassNotFoundException, SQLException {
+        if (tid == 1 && tpw == 1) {
+            System.out.println("chuẩn");
+            uDAO = new UserDAO();
+            uDAO.insertUser(tfId.getText(), tfPw.getText(), tfName.getText(), tfEmail.getText());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Thành công");
+            alert.setHeaderText("Đăng Ký Thành công");
+            alert.setContentText(null);
+            alert.getButtonTypes();
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Lỗi rồi");
+            alert.setHeaderText("Đề nghị kiểm tra Id và Password");
+            alert.setContentText(null);
+            alert.getButtonTypes();
+            alert.show();
+        }
     }
 
     @Override
