@@ -44,14 +44,6 @@ public class ListeningQuestionController implements Initializable {
     @FXML
     private TextField txtExplain;
     @FXML
-    private TextField txtAnwser1;
-    @FXML
-    private TextField txtAnwser2;
-    @FXML
-    private TextField txtAnwser3;
-    @FXML
-    private TextField txtAnwser4;
-    @FXML
     private ToggleGroup GroupAnswer;
     @FXML
     private RadioButton rdAnswer1;
@@ -83,26 +75,11 @@ public class ListeningQuestionController implements Initializable {
     @FXML
     public void addListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         qDAO = new QuestionDAO();
-        String rightAnswer;
         RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
-        String selectedValue = selectedRB.getText();
-        switch (selectedValue) {
-            case "A .":
-                rightAnswer = txtAnwser1.getText();
-                break;
-            case "B .":
-                rightAnswer = txtAnwser2.getText();
-                break;
-            case "C .":
-                rightAnswer = txtAnwser3.getText();
-                break;
-            default:
-                rightAnswer = txtAnwser4.getText();
-                break;
-        }
+        String rightAnswer = selectedRB.getText();
 
-        Question question = new Question(1, txtAudio.getText(), txtImage.getText(), txtAnwser1.getText(), txtAnwser2.getText(),
-                txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText());
+        Question question = new Question(1, txtAudio.getText(), txtImage.getText(), rdAnswer1.getText(), rdAnswer2.getText(),
+                rdAnswer3.getText(), rdAnswer4.getText(), rightAnswer, txtExplain.getText());
 
         if (qDAO.insertListeningQuestion(question)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -147,27 +124,12 @@ public class ListeningQuestionController implements Initializable {
                 alert.show();
             }
         } else {
-            String rightAnswer;
-            RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
-            String selectedValue = selectedRB.getText();
-            switch (selectedValue) {
-                case "A .":
-                    rightAnswer = txtAnwser1.getText();
-                    break;
-                case "B .":
-                    rightAnswer = txtAnwser2.getText();
-                    break;
-                case "C .":
-                    rightAnswer = txtAnwser3.getText();
-                    break;
-                default:
-                    rightAnswer = txtAnwser4.getText();
-                    break;
-            }
 
+            RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
+            String rightAnswer = selectedRB.getText();
             Question question = new Question(QuestionDAO.getQuestion().getId(), 1, "",
-                    txtAudio.getText(), txtImage.getText(), QuestionDAO.getQuestion().getFlag(), txtAnwser1.getText(), txtAnwser2.getText(),
-                    txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText(), 0);
+                    txtAudio.getText(), txtImage.getText(), QuestionDAO.getQuestion().getFlag(), rdAnswer1.getText(), rdAnswer2.getText(),
+                    rdAnswer3.getText(), rdAnswer4.getText(), rightAnswer, txtExplain.getText(), 0);
 
             if (qDAO.updateListeningQuestion(question)) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -219,23 +181,19 @@ public class ListeningQuestionController implements Initializable {
     private void LoadData() {
         txtAudio.setText(QuestionDAO.getQuestion().getAudio());
         txtImage.setText(QuestionDAO.getQuestion().getImage());
-        txtAnwser1.setText(QuestionDAO.getQuestion().getAnswer1());
-        txtAnwser2.setText(QuestionDAO.getQuestion().getAnswer2());
-        txtAnwser3.setText(QuestionDAO.getQuestion().getAnswer3());
-        txtAnwser4.setText(QuestionDAO.getQuestion().getAnswer4());
         txtExplain.setText(QuestionDAO.getQuestion().getExplain());
 
         if (QuestionDAO.getQuestion().getAnswer() == null) {
             btnUpdate.setVisible(false);
             btnDelete.setVisible(false);
         } else {
-            if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser1.getText())) {
+            if (QuestionDAO.getQuestion().getAnswer().equals(rdAnswer1.getText())) {
                 rdAnswer1.setSelected(true);
-            } else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser2.getText())) {
+            } else if (QuestionDAO.getQuestion().getAnswer().equals(rdAnswer2.getText())) {
                 rdAnswer2.setSelected(true);
-            } else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser3.getText())) {
+            } else if (QuestionDAO.getQuestion().getAnswer().equals(rdAnswer3.getText())) {
                 rdAnswer3.setSelected(true);
-            } else if (QuestionDAO.getQuestion().getAnswer().equals(txtAnwser4.getText())) {
+            } else if (QuestionDAO.getQuestion().getAnswer().equals(rdAnswer4.getText())) {
                 rdAnswer4.setSelected(true);
             }
             btnAdd.setVisible(false);
@@ -244,10 +202,6 @@ public class ListeningQuestionController implements Initializable {
                 btnDelete.setVisible(false);
                 txtImage.setEditable(false);
                 txtAudio.setEditable(false);
-                txtAnwser1.setEditable(false);
-                txtAnwser2.setEditable(false);
-                txtAnwser3.setEditable(false);
-                txtAnwser4.setEditable(false);
                 txtExplain.setEditable(false);
             }
         }
