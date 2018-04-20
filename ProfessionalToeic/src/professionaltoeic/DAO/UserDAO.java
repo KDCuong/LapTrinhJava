@@ -75,7 +75,6 @@ public class UserDAO {
     }
     public void insertUser(String id,String password,String fullname,String email) throws ClassNotFoundException,SQLException{
         String sql ="INSERT INTO user(user_name,user_fullname,password,type,email,flag) VALUES('"+id+"','"+fullname+"','"+password+"',2,'"+email+"',1)";
-//        ResultSet rs = dp.executeReader(sql);
         PreparedStatement rs = dp.getConnection().prepareStatement(sql);
         rs.executeUpdate();
         rs.close();

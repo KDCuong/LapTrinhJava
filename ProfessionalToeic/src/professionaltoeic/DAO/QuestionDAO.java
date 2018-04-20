@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import professionaltoeic.Model.Question;
+import professionaltoeic.Model.QuestionAnswer;
 import professionaltoeic.Model.User;
 
 /**
@@ -25,7 +26,9 @@ public class QuestionDAO {
     private final DataProvider dp;
     private static Question question;
     private static int Flag;
-
+    private static List<QuestionAnswer> questionAnswer =new ArrayList<>();
+     private static List<Question> questionUse =new ArrayList<>();
+     
     public QuestionDAO() throws ClassNotFoundException, SQLException {
         dp = new DataProvider();
     }
@@ -268,5 +271,20 @@ public class QuestionDAO {
 
     public static void setFlag(int Flag) {
         QuestionDAO.Flag = Flag;
+    }
+    
+     //Lấy câu trả lời
+    public static List getQuestionAnswer(){
+        return questionAnswer ;
+    }
+     public static void setQuestionAnswer(QuestionAnswer questionanswer) {
+        QuestionDAO.questionAnswer.add(questionanswer);
+    }
+    //Lấy các câu đã hỏi
+     public static List getQuestionUse(){
+        return questionUse ;
+    }
+     public static void setQuestionUse(Question question) {
+        QuestionDAO.questionUse.add(question);
     }
 }

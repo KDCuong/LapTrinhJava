@@ -36,21 +36,6 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonAdd" text="Add New">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="53.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Icon/button_add_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets right="40.0" />
-               </HBox.margin>
-            </Button>
             <Button mnemonicParsing="false" onAction="#callAdministratorManagerment" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonBack" text="Go Back">
                <graphic>
                   <ImageView fitHeight="48.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">

@@ -80,7 +80,7 @@ public class MainUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        lbname.setText(UserDAO.getLoginUser().getName());
+        lbname.setText(UserDAO.getLoginUser().getFullname());
         lbpoint.setText(String.valueOf(UserDAO.getLoginUser().getPoint()));
     }    
     

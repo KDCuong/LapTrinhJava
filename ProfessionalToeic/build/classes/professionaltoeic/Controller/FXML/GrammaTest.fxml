@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="professionaltoeic.Controller.GrammaTestController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.GrammaTestController">
     <stylesheets>
         <URL value="@/professionaltoeic/CSS/grammatest.css" />
     </stylesheets>
@@ -44,7 +44,7 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label text="Câu thứ mấy">
+                  <Label fx:id="lbnumber" text="Câu thứ mấy">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -53,7 +53,7 @@
             </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                  <Text fx:id="txtqt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -75,7 +75,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <RadioButton mnemonicParsing="false" selected="true" text="A.">
+                        <RadioButton fx:id="rb1" mnemonicParsing="false" selected="true" text="A.">
                            <toggleGroup>
                               <ToggleGroup fx:id="answer" />
                            </toggleGroup>
@@ -83,37 +83,37 @@
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="B." toggleGroup="$answer" GridPane.rowIndex="1">
+                        <RadioButton fx:id="rb2" mnemonicParsing="false" text="B." toggleGroup="$answer" GridPane.rowIndex="1">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="C." toggleGroup="$answer" GridPane.rowIndex="2">
+                        <RadioButton fx:id="rb3" mnemonicParsing="false" text="C." toggleGroup="$answer" GridPane.rowIndex="2">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="D." toggleGroup="$answer" GridPane.rowIndex="3">
+                        <RadioButton fx:id="rb4" mnemonicParsing="false" text="D." toggleGroup="$answer" GridPane.rowIndex="3">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </RadioButton>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
+                        <Text fx:id="txt1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Text fx:id="txt2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Text fx:id="txt3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Text fx:id="txt4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -122,7 +122,7 @@
                   </GridPane>
                </children>
             </VBox>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Next" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Button fx:id="btnnext" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#ButtonNext" prefHeight="25.0" prefWidth="102.0" text="Next" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
