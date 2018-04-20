@@ -85,7 +85,7 @@ public class GrammaTestController implements Initializable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        countQuestion = question.size();
+        countQuestion = 10;
         lbnumber.setText(String.valueOf(questionNumber));
 
         loadData();
@@ -101,6 +101,7 @@ public class GrammaTestController implements Initializable {
             txt3.setText(currentquestion.getAnswer3());
             txt4.setText(currentquestion.getAnswer4());
             QuestionDAO.setQuestionUse(currentquestion);
+            lbnumber.setText(String.valueOf(questionNumber));
         } else {  
             Alert alert = new Alert(Alert.AlertType.ERROR, "Không có câu hỏi nào !!!", new ButtonType("OK"));
             alert.showAndWait();       

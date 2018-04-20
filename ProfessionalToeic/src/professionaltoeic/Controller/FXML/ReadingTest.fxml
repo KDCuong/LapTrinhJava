@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -15,10 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="professionaltoeic.Controller.ReadingTestController">
-    <stylesheets>
-        <URL value="@/professionaltoeic/CSS/readingtest.css" />
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/listeningtest.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.ReadingTestController">
    <children>
       <GridPane layoutX="10.0" layoutY="5.0" prefHeight="634.0" prefWidth="610.0">
          <columnConstraints>
@@ -31,12 +34,12 @@
             <RowConstraints maxHeight="218.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Reading" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="Title" text="Reading" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="46.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Next" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#ButtonNext" prefHeight="25.0" prefWidth="102.0" styleClass="ButtionNext" text="Next" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -45,7 +48,7 @@
                <content>
                   <VBox>
                      <children>
-                        <Text fx:id="txt1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="600.0">
+                        <Text fx:id="txtqt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="600.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -61,7 +64,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <RadioButton mnemonicParsing="false" selected="true" text="A.">
+                              <RadioButton fx:id="rb1" mnemonicParsing="false" selected="true" text="A.">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="answer" />
                                  </toggleGroup>
@@ -69,34 +72,34 @@
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="B." toggleGroup="$answer" GridPane.rowIndex="1">
+                              <RadioButton fx:id="rb2" mnemonicParsing="false" text="B." toggleGroup="$answer" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="C." toggleGroup="$answer" GridPane.rowIndex="2">
+                              <RadioButton fx:id="rb3" mnemonicParsing="false" text="C." toggleGroup="$answer" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
+                              <Text fx:id="txt1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Text fx:id="txt2" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Text fx:id="txt3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
                            </children>
                         </GridPane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="600.0">
+                        <Text fx:id="txtqt1" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="600.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -112,7 +115,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <RadioButton mnemonicParsing="false" selected="true" text="A.">
+                              <RadioButton fx:id="rb11" mnemonicParsing="false" selected="true" text="A.">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="answer1" />
                                  </toggleGroup>
@@ -120,34 +123,34 @@
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="B." toggleGroup="$answer1" GridPane.rowIndex="1">
+                              <RadioButton fx:id="rb22" mnemonicParsing="false" text="B." toggleGroup="$answer1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="C." toggleGroup="$answer1" GridPane.rowIndex="2">
+                              <RadioButton fx:id="rb33" mnemonicParsing="false" text="C." toggleGroup="$answer1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
+                              <Text fx:id="txt11" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Text fx:id="txt22" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Text fx:id="txt33" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
                            </children>
                         </GridPane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="600.0">
+                        <Text fx:id="txtqt11" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="600.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -163,7 +166,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <RadioButton mnemonicParsing="false" selected="true" text="A.">
+                              <RadioButton fx:id="rb111" mnemonicParsing="false" selected="true" text="A.">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="answer2" />
                                  </toggleGroup>
@@ -171,27 +174,27 @@
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="B." toggleGroup="$answer2" GridPane.rowIndex="1">
+                              <RadioButton fx:id="rb222" mnemonicParsing="false" text="B." toggleGroup="$answer2" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <RadioButton mnemonicParsing="false" text="C." toggleGroup="$answer2" GridPane.rowIndex="2">
+                              <RadioButton fx:id="rb333" mnemonicParsing="false" text="C." toggleGroup="$answer2" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </RadioButton>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
+                              <Text fx:id="txt111" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Text fx:id="txt222" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Text>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Text fx:id="txt333" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
