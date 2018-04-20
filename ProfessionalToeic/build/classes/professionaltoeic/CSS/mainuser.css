@@ -12,3 +12,8 @@
 .Label{
     -fx-font-size: 20;
 }
+
+.ButtonLogout{
+    -fx-background-color: #ff6633;
+    -fx-font-type: bold;
+}

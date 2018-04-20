@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="774.0" styleClass="mainFxmlClass" stylesheets="@../../CSS/listeningquestion.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="professionaltoeic.Controller.UpdateUserController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="120.0" prefWidth="774.0" GridPane.columnSpan="2">
+         <children>
+            <Label styleClass="Title" text="User Management" />
+         </children>
+      </HBox>
+      <Label text="User name" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Full name" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Password" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" prefHeight="180.0" prefWidth="774.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+         <children>
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteUser" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonDel" text="Delete">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="53.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icon/delete_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#updateUser" prefHeight="67.0" prefWidth="144.0" styleClass="ButtonUpdate" text="Update">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="53.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" styleClass="ButtonUpdate">
+                     <image>
+                        <Image url="@../../Icon/update_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="40.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#callUserManagerment" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonBack" text="Cancel">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="48.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icon/cancel_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets bottom="5.0" right="50.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="652.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TextField fx:id="txtUsername" prefHeight="31.0" prefWidth="630.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <TextField fx:id="txtFullname" prefHeight="31.0" prefWidth="630.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+            <TextField fx:id="txtPassword" prefHeight="31.0" prefWidth="631.0" />
+         </children>
+      </HBox>
+      <Label text="Email" GridPane.rowIndex="4">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <TextField fx:id="txtEmail" prefHeight="31.0" prefWidth="631.0" />
+         </children>
+      </HBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="136.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="655.0" minWidth="10.0" prefWidth="638.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="119.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="190.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="185.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="312.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="262.0" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+</GridPane>

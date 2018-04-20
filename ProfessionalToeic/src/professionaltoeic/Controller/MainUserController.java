@@ -38,6 +38,8 @@ public class MainUserController implements Initializable {
     private Label lbname;
     @FXML
     private Label lbpoint;
+    @FXML
+    private Button btnSetting;
     
     private LoginController lc;
     
@@ -82,6 +84,11 @@ public class MainUserController implements Initializable {
         // TODO
         lbname.setText(UserDAO.getLoginUser().getFullname());
         lbpoint.setText(String.valueOf(UserDAO.getLoginUser().getPoint()));
+        btnSetting.setVisible(false);
     }    
     
+    public void callLogIn(ActionEvent event) throws IOException {        
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "Login");
+     }
 }

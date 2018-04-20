@@ -56,6 +56,13 @@ public class QuestionManagementController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+                cbType.getItems().addAll(
+                "Listening",
+                "Reading",
+                "Grammar",
+                "All"
+        );
+        cbType.setPromptText("Input Type");
         loadQuestionData();
     }
 
@@ -82,13 +89,6 @@ public class QuestionManagementController implements Initializable {
     }
 
     public void loadQuestionData() {
-        cbType.getItems().addAll(
-                "Listening",
-                "Reading",
-                "Grammar",
-                "All"
-        );
-        cbType.setPromptText("Input Type");
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colContent.setCellValueFactory(new PropertyValueFactory<>("content"));

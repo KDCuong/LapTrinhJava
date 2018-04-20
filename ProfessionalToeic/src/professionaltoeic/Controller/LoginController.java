@@ -43,13 +43,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private void ButtonAction(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/Register.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.show();
+        SceneMovement sm = new SceneMovement();
+                    sm.callNewScene(event, "Register");
     }
 
     @FXML
@@ -61,24 +56,12 @@ public class LoginController implements Initializable {
         if (user != null) {
             if (user.getName().equals(name) && user.getPassword().equals(password)) {
                 if (user.getType() == 1) {
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.hide();
-                    stage.setResizable(false);
-                    Parent root = FXMLLoader.load(getClass().getResource("FXML/Administrator.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setTitle("Administrator");
-                    stage.setScene(scene);
-                    stage.show();
+                     SceneMovement sm = new SceneMovement();
+                    sm.callNewScene(event, "Administrator");
                 }
                 UserDAO.setLoginUser(user);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.hide();
-                stage.setResizable(false);
-                Parent root = FXMLLoader.load(getClass().getResource("FXML/MainUser.fxml"));
-                Scene scene = new Scene(root);
-                stage.setTitle("User");
-                stage.setScene(scene);
-                stage.show();
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "MainUser");
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
