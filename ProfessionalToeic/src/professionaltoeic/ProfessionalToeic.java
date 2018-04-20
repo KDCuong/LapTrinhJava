@@ -19,7 +19,7 @@ public class ProfessionalToeic extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Controller/FXML/Administrator.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Controller/FXML/Login.fxml"));
         
         Scene scene = new Scene(root);
         

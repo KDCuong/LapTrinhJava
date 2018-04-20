@@ -40,7 +40,6 @@ public class LoginController implements Initializable {
      * Initializes the controller class.
      */
     private UserDAO uDAO;
-    private User user;
 
     @FXML
     private void ButtonAction(ActionEvent event) throws IOException {
@@ -51,7 +50,6 @@ public class LoginController implements Initializable {
 
         stage.setScene(scene);
         stage.show();
-        System.out.println("You clicked me!");
     }
 
     @FXML
@@ -59,7 +57,7 @@ public class LoginController implements Initializable {
         uDAO = new UserDAO();
         String name = tfLogin.getText();
         String password = tfPassword.getText();
-        user = uDAO.getUser(name);
+        User user = uDAO.getUser(name);
         if (user != null) {
             if (user.getName().equals(name) && user.getPassword().equals(password)) {
                 if (user.getType() == 1) {
@@ -82,10 +80,9 @@ public class LoginController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } else {
-                System.out.println("ngu học");
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Lỗi rồi");
-                alert.setHeaderText("Đề nghị kiểm tra Id và Password");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Please recheck your Id and Password");
                 alert.setContentText(null);
                 alert.getButtonTypes();
                 alert.show();
