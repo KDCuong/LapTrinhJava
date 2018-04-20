@@ -41,7 +41,7 @@ public class UserDAO {
             if(flag==1)
                 status= "In use";
             else 
-                status = "Delete";
+                status = "Deleted";
             User u = new User(id,name,fullname,password,type,email,status,point);
             userlist.add(u);
         }
@@ -66,7 +66,7 @@ public class UserDAO {
             if(flag==1)
                 status= "In use";
             else 
-                status = "Delete";
+                status = "Deleted";
             user = new User(id,name,fullname,password,type,email,status,point);
         }
         rs.close();
@@ -80,6 +80,51 @@ public class UserDAO {
         rs.close();
         dp.closeDB();
     }
+    
+    public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE user SET user_fullname = ?, password = ?, type = ?, "
+                + "email = ?, flag = ? WHERE user_id = ?";
+        int i;
+        try (PreparedStatement ps = dp.getConnection().prepareStatement(sql)) {
+            ps.setString(1, user.getFullname());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, user.getType());
+            ps.setString(4, user.getEmail());
+            ps.setInt(5, 1);
+            ps.setInt(6, user.getId());
+            i = 0;
+            i = ps.executeUpdate();
+        }
+        dp.closeDB();
+        return i != 0;
+    }
+
+    public boolean deleteUser(int id) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE user SET flag = 9 "
+                + "WHERE user_id = ?";
+        int i;
+        try (PreparedStatement ps = dp.getConnection().prepareStatement(sql)) {
+            ps.setInt(1, id);
+            i = 0;
+            i = ps.executeUpdate();
+        }
+        dp.closeDB();
+        return i != 0;
+    }
+
+    public boolean reverseUser(int id) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE user SET flag = 1 "
+                + "WHERE user_id = ?";
+        int i;
+        try (PreparedStatement ps = dp.getConnection().prepareStatement(sql)) {
+            ps.setInt(1, id);
+            i = 0;
+            i = ps.executeUpdate();
+        }
+        dp.closeDB();
+        return i != 0;
+    }
+    
     public static User getLoginUser(){
         return user;
     }
