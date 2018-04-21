@@ -73,7 +73,7 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Practice" textAlignment="CENTER" textOverrun="CLIP">
                      <font>
@@ -139,7 +139,38 @@
                   </StackPane>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Examination" textAlignment="CENTER" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                  </Label>
+                  <StackPane prefHeight="338.0" prefWidth="353.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7dc7f5" height="333.0" stroke="#ff0025" strokeType="INSIDE" strokeWidth="5.0" width="333.0" />
+                        <VBox alignment="CENTER" prefHeight="347.0" prefWidth="355.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="92.0" prefWidth="310.0" text="Examing">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="78.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../Icon/doing_icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </StackPane>
+               </children></VBox>
          </children>
       </GridPane>
       <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#callLogIn" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonLogout" text="Log out">

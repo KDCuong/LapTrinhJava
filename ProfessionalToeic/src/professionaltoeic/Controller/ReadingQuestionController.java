@@ -8,17 +8,11 @@ package professionaltoeic.Controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -64,88 +58,32 @@ public class ReadingQuestionController implements Initializable {
     private Button btnDelete;
     @FXML
     private TextField txtPID;
-     @FXML
+    @FXML
     private Label lblPID;
 
     private QuestionDAO qDAO;
+    SceneMovement sm;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LoadData();
     }
 
-    public void callAddQuestionManagerment(ActionEvent event) throws IOException {
-        SceneMovement sm = new SceneMovement();
-        sm.callNewScene(event, "AddQuestionManagement");
+    public void callSceneManagerment(ActionEvent event) throws IOException {
+        if (QuestionDAO.getTypePageFlag().equals("Add")){
+            sm = new SceneMovement();
+            sm.callNewScene(event, "AddQuestionManagement");
+        }
+        else{
+            sm = new SceneMovement();
+            sm.callNewScene(event, "QuestionManagement");
+        }
     }
 
     @FXML
     public void addQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
-        qDAO = new QuestionDAO();
-        String rightAnswer;
-        RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
-        String selectedValue = selectedRB.getText();
-        switch (selectedValue) {
-            case "A .":
-                rightAnswer = txtAnwser1.getText();
-                break;
-            case "B .":
-                rightAnswer = txtAnwser2.getText();
-                break;
-            case "C .":
-                rightAnswer = txtAnwser3.getText();
-                break;
-            default:
-                rightAnswer = txtAnwser4.getText();
-                break;
-        }
-        int p_id = Integer.parseInt(txtPID.getText());
-        Question question = new Question(QuestionDAO.getFlag(), txtContent.getText(), txtAnwser1.getText(), txtAnwser2.getText(),
-                txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText(), p_id);
-
-        if (qDAO.insertQuestion(question)) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("Adding question successfull");
-            alert.setContentText(null);
-            alert.getButtonTypes();
-            alert.showAndWait();
-
-            SceneMovement sm = new SceneMovement();
-            sm.callNewScene(event, "AddQuestionManagement");
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Please recheck your question");
-            alert.setContentText(null);
-            alert.getButtonTypes();
-            alert.show();
-        }
-    }
-
-    @FXML
-    public void updateQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
-        qDAO = new QuestionDAO();
-        if (QuestionDAO.getQuestion().getFlag().equals("Deleted")) {
-            if (qDAO.reverseQuestion(QuestionDAO.getQuestion().getId())) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Your question now up to date");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
-                sm.callNewScene(event, "QuestionManagement");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please retry in a minute later");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
-            }
-        } else {
+        if (completeCheck()) {
+            qDAO = new QuestionDAO();
             String rightAnswer;
             RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
             String selectedValue = selectedRB.getText();
@@ -163,28 +101,65 @@ public class ReadingQuestionController implements Initializable {
                     rightAnswer = txtAnwser4.getText();
                     break;
             }
-            int p_id = Integer.parseInt(txtPID.getText()); 
-            Question question = new Question(QuestionDAO.getQuestion().getId(), QuestionDAO.getFlag(), txtContent.getText(),
-                    "", "", QuestionDAO.getQuestion().getFlag(), txtAnwser1.getText(), txtAnwser2.getText(),
+            int p_id = Integer.parseInt(txtPID.getText());
+            Question question = new Question(QuestionDAO.getTypeQuestionFlag(), txtContent.getText(), txtAnwser1.getText(), txtAnwser2.getText(),
                     txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText(), p_id);
 
-            if (qDAO.updateQuestion(question)) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Update question successfull");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
-                sm.callNewScene(event, "QuestionManagement");
+            if (qDAO.insertQuestion(question)) {
+                sm = new SceneMovement();
+                sm.callConfirmAlert("Adding question successfull");
+                sm.callNewScene(event, "AddQuestionManagement");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please recheck your question");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm = new SceneMovement();
+                sm.callErrorAlert("Something wrong happened. Please retry it later");
+            }
+        }
+    }
+
+    @FXML
+    public void updateQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+        if (completeCheck()) {
+            qDAO = new QuestionDAO();
+            if (QuestionDAO.getQuestion().getFlag().equals("Deleted")) {
+                if (qDAO.reverseQuestion(QuestionDAO.getQuestion().getId())) {
+                    sm = new SceneMovement();
+                    sm.callConfirmAlert("Your question now up to date");
+                    sm.callNewScene(event, "QuestionManagement");
+                } else {
+                    sm = new SceneMovement();
+                    sm.callErrorAlert("Something wrong happened. Please retry it later");
+                }
+            } else {
+                String rightAnswer;
+                RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
+                String selectedValue = selectedRB.getText();
+                switch (selectedValue) {
+                    case "A .":
+                        rightAnswer = txtAnwser1.getText();
+                        break;
+                    case "B .":
+                        rightAnswer = txtAnwser2.getText();
+                        break;
+                    case "C .":
+                        rightAnswer = txtAnwser3.getText();
+                        break;
+                    default:
+                        rightAnswer = txtAnwser4.getText();
+                        break;
+                }
+                int p_id = Integer.parseInt(txtPID.getText());
+                Question question = new Question(QuestionDAO.getQuestion().getId(), QuestionDAO.getTypeQuestionFlag(), txtContent.getText(),
+                        "", "", QuestionDAO.getQuestion().getFlag(), txtAnwser1.getText(), txtAnwser2.getText(),
+                        txtAnwser3.getText(), txtAnwser4.getText(), rightAnswer, txtExplain.getText(), p_id);
+
+                if (qDAO.updateQuestion(question)) {
+                    sm = new SceneMovement();
+                    sm.callConfirmAlert("Update question successfull");
+                    sm.callNewScene(event, "QuestionManagement");
+                } else {
+                    sm = new SceneMovement();
+                    sm.callErrorAlert("Something wrong happened. Please retry it later");
+                }
             }
         }
     }
@@ -195,27 +170,17 @@ public class ReadingQuestionController implements Initializable {
 
         if (QuestionDAO.getQuestion().getId() != 0) {
             if (qDAO.deleteQuestion(QuestionDAO.getQuestion().getId())) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Delete question successfull");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
+                sm = new SceneMovement();
+                sm.callConfirmAlert("Delete question successfull");
                 sm.callNewScene(event, "QuestionManagement");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Retry in a mininute later");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm = new SceneMovement();
+                sm.callErrorAlert("Something wrong happened. Please retry it later");
             }
         }
     }
 
-    private void LoadData(){
+    private void LoadData() {
         txtContent.setText(QuestionDAO.getQuestion().getContent());
         txtAnwser1.setText(QuestionDAO.getQuestion().getAnswer1());
         txtAnwser2.setText(QuestionDAO.getQuestion().getAnswer2());
@@ -223,7 +188,7 @@ public class ReadingQuestionController implements Initializable {
         txtAnwser4.setText(QuestionDAO.getQuestion().getAnswer4());
         txtExplain.setText(QuestionDAO.getQuestion().getExplain());
         txtPID.setText(String.valueOf(QuestionDAO.getQuestion().getParagraph_id()));
-        if (QuestionDAO.getFlag() == 3){
+        if (QuestionDAO.getTypeQuestionFlag() == 3) {
             txtPID.setVisible(false);
             lblPID.setVisible(false);
         }
@@ -253,7 +218,24 @@ public class ReadingQuestionController implements Initializable {
                 txtExplain.setEditable(false);
             }
         }
-
     }
-    
+
+    public boolean completeCheck() {
+        sm = new SceneMovement();
+        if (QuestionDAO.getTypeQuestionFlag() == 2) {
+            if (sm.dataTextFieldCheck(txtPID, "PARAGRAPH ID") == false) {
+                return false;
+            }
+        }
+        if (sm.dataTextAreaCheck(txtContent, "CONTENT") == false) {
+            return false;
+        } else if (sm.dataTextFieldCheck(txtAnwser1, "at least 3 ANSWER in order") == false) {
+            return false;
+        } else if (sm.dataTextFieldCheck(txtAnwser2, "at least 3 ANSWER in order") == false) {
+            return false;
+        } else if (sm.dataTextFieldCheck(txtAnwser3, "at least 3 ANSWER in order") == false) {
+            return false;
+        }
+        return true;
+    }
 }

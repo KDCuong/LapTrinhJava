@@ -5,17 +5,13 @@
  */
 package professionaltoeic.DAO;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import professionaltoeic.Model.Question;
 import professionaltoeic.Model.QuestionAnswer;
-import professionaltoeic.Model.User;
 
 /**
  *
@@ -25,14 +21,17 @@ public class QuestionDAO {
 
     private final DataProvider dp;
     private static Question question;
-    private static int Flag;
-    private static List<QuestionAnswer> questionAnswer =new ArrayList<>();
-     private static List<Question> questionUse =new ArrayList<>();
-     
+    private static int typeFlag;
+    private static String pageFlag;
+    private static List<QuestionAnswer> questionAnswer = new ArrayList<>();
+    private static List<Question> questionUse = new ArrayList<>();
+
+    //Connect to database
     public QuestionDAO() throws ClassNotFoundException, SQLException {
         dp = new DataProvider();
     }
 
+    //Get all Question in database
     public List<Question> getAllQuestions() throws SQLException, ClassNotFoundException {
         List<Question> questionList = new ArrayList<>();
         String sql = "SELECT * FROM question";
@@ -66,6 +65,7 @@ public class QuestionDAO {
         return questionList;
     }
 
+    //Get all Question in database by type
     public List<Question> getAllQuestionsByComboBox(int Type) throws SQLException, ClassNotFoundException {
         List<Question> questionList = new ArrayList<>();
         String sql = "SELECT * FROM question where question_type = ?";
@@ -101,6 +101,7 @@ public class QuestionDAO {
         return questionList;
     }
 
+    //Get Question in database by id
     public Question getQuestionsByID(int id) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM question WHERE question_id = ?";
         PreparedStatement ps = dp.getConnection().prepareStatement(sql);
@@ -135,7 +136,8 @@ public class QuestionDAO {
         return qt;
     }
 
-     public List<Question> getAllQuestionsByComboBoxIdParagraph(int Type,int paragraphId) throws SQLException, ClassNotFoundException {
+    //Get all ReadingQuestion in same paragraph
+    public List<Question> getAllQuestionsByComboBoxIdParagraph(int Type, int paragraphId) throws SQLException, ClassNotFoundException {
         List<Question> questionList = new ArrayList<>();
         String sql = "SELECT * FROM question where question_type = ? AND paragraph_id = ? AND question_flag = 1";
         PreparedStatement ps = dp.getConnection().prepareStatement(sql);
@@ -170,6 +172,8 @@ public class QuestionDAO {
         dp.closeDB();
         return questionList;
     }
+
+    //Insert ListeningQuestion
     public boolean insertListeningQuestion(Question question) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO question (question_type, question_img, question_audio, "
                 + "answer_1, answer_2, answer_3, answer_4, question_flag, question_answer, question_explain) "
@@ -193,29 +197,31 @@ public class QuestionDAO {
         return i != 0;
     }
 
+    //Insert ReadingQuestion and GrammarQuestion
     public boolean insertQuestion(Question question) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO question (question_type, question_content, paragraph_id, "
                 + "answer_1, answer_2, answer_3, answer_4, question_flag, question_answer, question_explain) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement ps = dp.getConnection().prepareStatement(sql);
-
-        ps.setInt(1, question.getType());
-        ps.setString(2, question.getContent());
-        ps.setInt(3, question.getParagraph_id());
-        ps.setString(4, question.getAnswer1());
-        ps.setString(5, question.getAnswer2());
-        ps.setString(6, question.getAnswer3());
-        ps.setString(7, question.getAnswer4());
-        ps.setInt(8, 1);
-        ps.setString(9, question.getAnswer());
-        ps.setString(10, question.getExplain());
-        int i = 0;
-        i = ps.executeUpdate();
-        ps.close();
+        int i;
+        try (PreparedStatement ps = dp.getConnection().prepareStatement(sql)) {
+            ps.setInt(1, question.getType());
+            ps.setString(2, question.getContent());
+            ps.setInt(3, question.getParagraph_id());
+            ps.setString(4, question.getAnswer1());
+            ps.setString(5, question.getAnswer2());
+            ps.setString(6, question.getAnswer3());
+            ps.setString(7, question.getAnswer4());
+            ps.setInt(8, 1);
+            ps.setString(9, question.getAnswer());
+            ps.setString(10, question.getExplain());
+            i = 0;
+            i = ps.executeUpdate();
+        }
         dp.closeDB();
         return i != 0;
     }
 
+    //Update ListeningQuestion
     public boolean updateListeningQuestion(Question question) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE question SET question_type = ?, question_img = ?, question_audio = ?, "
                 + "answer_1 = ?, answer_2 = ?, answer_3 = ?, answer_4 = ?, "
@@ -241,6 +247,7 @@ public class QuestionDAO {
         return i != 0;
     }
 
+    //Update ReadingQuestion and GrammarQuestion
     public boolean updateQuestion(Question question) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE question SET question_type = ?, question_content = ?, paragraph_id = ?, "
                 + "answer_1 = ?, answer_2 = ?, answer_3 = ?, answer_4 = ?, "
@@ -266,6 +273,7 @@ public class QuestionDAO {
         return i != 0;
     }
 
+    //Dalete All Type Question
     public boolean deleteQuestion(int id) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE question SET question_flag = 9 "
                 + "WHERE question_id = ?";
@@ -279,6 +287,7 @@ public class QuestionDAO {
         return i != 0;
     }
 
+    //Make deleted Question Up-to-date
     public boolean reverseQuestion(int id) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE question SET question_flag = 1 "
                 + "WHERE question_id = ?";
@@ -292,38 +301,47 @@ public class QuestionDAO {
         return i != 0;
     }
 
+    //Saving a question to new scene
     public static Question getQuestion() {
         return question;
     }
-
     public static void setQuestion(Question question) {
         QuestionDAO.question = question;
     }
-    
-    public static int getFlag() {
-        return Flag;
+
+    //Control ReadingQuestion and GrammarQuestion by Flag
+    public static int getTypeQuestionFlag() {
+        return typeFlag;
+    }
+    public static void setTypeQuestionFlag(int typeFlag) {
+        QuestionDAO.typeFlag = typeFlag;
     }
 
-    public static void setFlag(int Flag) {
-        QuestionDAO.Flag = Flag;
+    public static String getTypePageFlag() {
+        return pageFlag;
     }
-    
-     //Lấy câu trả lời
-    public static List getQuestionAnswer(){
-        return questionAnswer ;
+
+    public static void setTypePageFlag(String pageFlag) {
+        QuestionDAO.pageFlag = pageFlag;
     }
-     public static void setQuestionAnswer(QuestionAnswer questionanswer) {
+
+    public static List getQuestionAnswer() {
+        return questionAnswer;
+    }
+
+    public static void setQuestionAnswer(QuestionAnswer questionanswer) {
         QuestionDAO.questionAnswer.add(questionanswer);
     }
-    //Lấy các câu đã hỏi
-     public static List getQuestionUse(){
-        return questionUse ;
+
+    public static List getQuestionUse() {
+        return questionUse;
     }
-     public static void setQuestionUse(Question question) {
+
+    public static void setQuestionUse(Question question) {
         QuestionDAO.questionUse.add(question);
     }
-     
-     public static void setQuestionUseNull(){
+
+    public static void setQuestionUseNull() {
         questionUse = new ArrayList<>();
         questionAnswer = new ArrayList<>();
     }

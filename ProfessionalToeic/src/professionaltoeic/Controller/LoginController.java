@@ -44,7 +44,7 @@ public class LoginController implements Initializable {
     @FXML
     private void ButtonAction(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
-                    sm.callNewScene(event, "Register");
+        sm.callNewScene(event, "Register");
     }
 
     @FXML
@@ -56,7 +56,7 @@ public class LoginController implements Initializable {
         if (user != null) {
             if (user.getName().equals(name) && user.getPassword().equals(password)) {
                 if (user.getType() == 1) {
-                     SceneMovement sm = new SceneMovement();
+                    SceneMovement sm = new SceneMovement();
                     sm.callNewScene(event, "Administrator");
                 }
                 UserDAO.setLoginUser(user);
