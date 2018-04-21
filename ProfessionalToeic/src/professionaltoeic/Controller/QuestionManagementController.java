@@ -7,7 +7,6 @@ package professionaltoeic.Controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,21 +14,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.Model.Question;
 
@@ -66,11 +58,13 @@ public class QuestionManagementController implements Initializable {
         loadQuestionData();
     }
 
+    //Move to Admin scene
     public void callAdministratorManagerment(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "Administrator");
     }
 
+    //Insert database to list
     private ObservableList<Question> getQuestionList() {
 
         try {
@@ -88,6 +82,7 @@ public class QuestionManagementController implements Initializable {
         return list;
     }
 
+    //Set data into TableView
     public void loadQuestionData() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -96,6 +91,7 @@ public class QuestionManagementController implements Initializable {
         tbQuestion.setItems(list);
     }
 
+    //Load Question by ComboBox
     @FXML
     private void getQuestionListByComboBox() {
 
@@ -123,11 +119,13 @@ public class QuestionManagementController implements Initializable {
         loadQuestionData();
     }
 
+    //Move to add question scene
     public void callAddQuestionManagerment(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "AddQuestionManagement");
     }
 
+    //Move to question update/delete scene
     @FXML
     public void callUpdateQuestion(MouseEvent event) throws IOException {
             Question row = tbQuestion.getSelectionModel().getSelectedItem();

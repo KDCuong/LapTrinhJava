@@ -11,15 +11,10 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import professionaltoeic.DAO.UserDAO;
 import professionaltoeic.Model.User;
 
@@ -31,52 +26,62 @@ import professionaltoeic.Model.User;
 public class LoginController implements Initializable {
 
     @FXML
-    private Button btnR;
+    private TextField txtLogin;
     @FXML
-    private TextField tfLogin;
-    @FXML
-    private TextField tfPassword;
+    private TextField txtPassword;
+
+    private UserDAO uDAO;
+    SceneMovement sm;
+
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
-    private UserDAO uDAO;
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
+    //Move to Sign Up Scene
     @FXML
-    private void ButtonAction(ActionEvent event) throws IOException {
+    private void callRegisterScene(ActionEvent event) throws IOException {
         SceneMovement sm = new SceneMovement();
         sm.callNewScene(event, "Register");
     }
 
+    //Move to Admin scene or User scene
     @FXML
-    private void ButtonLogin(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+    private void callMainScene(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         uDAO = new UserDAO();
-        String name = tfLogin.getText();
-        String password = tfPassword.getText();
-        User user = uDAO.getUser(name);
+        String name = txtLogin.getText();
+        String password = txtPassword.getText();
+        User user = uDAO.getUserByUserName(name);
         if (user != null) {
             if (user.getName().equals(name) && user.getPassword().equals(password)) {
                 if (user.getType() == 1) {
-                    SceneMovement sm = new SceneMovement();
+                    sm = new SceneMovement();
                     sm.callNewScene(event, "Administrator");
                 }
                 UserDAO.setLoginUser(user);
-                SceneMovement sm = new SceneMovement();
+                sm = new SceneMovement();
                 sm.callNewScene(event, "MainUser");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please recheck your Id and Password");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm = new SceneMovement();
+                sm.callErrorAlert("Please recheck your Id and Password");
             }
         }
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    //Check Space
+    @FXML
+    private void checkSpace(KeyEvent ke) {
+        if (ke.getCode().equals(KeyCode.SPACE)) {
+            sm = new SceneMovement();
+            sm.callErrorAlert("User Name cannot have SPACE character!!");
+        }
     }
-
 }

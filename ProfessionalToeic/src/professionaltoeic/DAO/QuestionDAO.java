@@ -68,7 +68,7 @@ public class QuestionDAO {
     //Get all Question in database by type
     public List<Question> getAllQuestionsByComboBox(int Type) throws SQLException, ClassNotFoundException {
         List<Question> questionList = new ArrayList<>();
-        String sql = "SELECT * FROM question where question_type = ?";
+        String sql = "SELECT * FROM question WHERE question_type = ?";
         PreparedStatement ps = dp.getConnection().prepareStatement(sql);
         ps.setInt(1, Type);
         try (ResultSet rs = ps.executeQuery()) {
@@ -137,9 +137,9 @@ public class QuestionDAO {
     }
 
     //Get all ReadingQuestion in same paragraph
-    public List<Question> getAllQuestionsByComboBoxIdParagraph(int Type, int paragraphId) throws SQLException, ClassNotFoundException {
+    public List<Question> getAllReadingQuestionsByIdParagraph(int Type, int paragraphId) throws SQLException, ClassNotFoundException {
         List<Question> questionList = new ArrayList<>();
-        String sql = "SELECT * FROM question where question_type = ? AND paragraph_id = ? AND question_flag = 1";
+        String sql = "SELECT * FROM question WHERE question_type = ? AND paragraph_id = ? AND question_flag = 1";
         PreparedStatement ps = dp.getConnection().prepareStatement(sql);
         ps.setInt(1, Type);
         ps.setInt(2, paragraphId);
@@ -317,6 +317,7 @@ public class QuestionDAO {
         QuestionDAO.typeFlag = typeFlag;
     }
 
+    //Control Button Cancel by Flag
     public static String getTypePageFlag() {
         return pageFlag;
     }

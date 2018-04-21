@@ -94,7 +94,7 @@ public class UserManagementController implements Initializable {
         User user = new User();
         try {
             uDAO = new UserDAO();
-            user = uDAO.getUser(row.getName());
+            user = uDAO.getUserByUserName(row.getName());
             UserDAO.setLoginUser(user);
         } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));

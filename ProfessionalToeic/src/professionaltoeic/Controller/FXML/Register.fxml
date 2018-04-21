@@ -27,7 +27,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label text="ID" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label text="User Name" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin></Label>
@@ -37,38 +37,45 @@
                </GridPane.margin></Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <children>
-                  <Button fx:id="btnDk" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonRegister" prefHeight="31.0" prefWidth="92.0" styleClass="ButtionSingup" text="Sign up" textAlignment="CENTER">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#addUser" prefHeight="31.0" prefWidth="92.0" styleClass="ButtionSingup" text="Sign up" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets right="12.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnB" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ButtonAction" prefHeight="31.0" prefWidth="93.0" styleClass="ButtonCancel" text="Cancel" textAlignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#callLoginScene" prefHeight="31.0" prefWidth="93.0" styleClass="ButtonCancel" text="Cancel" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="12.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <TextField fx:id="tfName" prefHeight="25.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Full Name" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="20.0" />
-               </GridPane.margin></Label>
+               </GridPane.margin>
+            </Label>
             <Label text="Email" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin></Label>
-            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="tfId" onKeyReleased="#TfId" onRotationFinished="#TfId" prefHeight="25.0" prefWidth="215.0" />
-                  <Label fx:id="lbId" textFill="RED" />
+                  <TextField fx:id="txtUserName" onKeyPressed="#checkSpace" prefHeight="31.0" prefWidth="419.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <TextField fx:id="tfPw" onKeyReleased="#TfPw" onKeyTyped="#TfPw" prefHeight="25.0" prefWidth="286.0" />
-                  <Label fx:id="lbPw" textFill="RED" />
+                  <TextField fx:id="txtPassword" prefHeight="31.0" prefWidth="419.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="txtFullName" prefHeight="25.0" prefWidth="419.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <TextField fx:id="txtEmail" prefHeight="31.0" prefWidth="419.0" />
                </children>
             </HBox>
          </children>

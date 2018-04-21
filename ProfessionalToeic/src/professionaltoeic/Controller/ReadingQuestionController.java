@@ -68,7 +68,8 @@ public class ReadingQuestionController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         LoadData();
     }
-
+    
+    //Move to Add question scene or question management scene by Flag
     public void callSceneManagerment(ActionEvent event) throws IOException {
         if (QuestionDAO.getTypePageFlag().equals("Add")){
             sm = new SceneMovement();
@@ -80,6 +81,7 @@ public class ReadingQuestionController implements Initializable {
         }
     }
 
+    //Insert Question
     @FXML
     public void addQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         if (completeCheck()) {
@@ -116,6 +118,7 @@ public class ReadingQuestionController implements Initializable {
         }
     }
 
+    //Update Question
     @FXML
     public void updateQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         if (completeCheck()) {
@@ -164,6 +167,7 @@ public class ReadingQuestionController implements Initializable {
         }
     }
 
+    //Delete Question
     @FXML
     public void deleteQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         qDAO = new QuestionDAO();
@@ -180,6 +184,7 @@ public class ReadingQuestionController implements Initializable {
         }
     }
 
+    //Load database to scene
     private void LoadData() {
         txtContent.setText(QuestionDAO.getQuestion().getContent());
         txtAnwser1.setText(QuestionDAO.getQuestion().getAnswer1());
@@ -220,6 +225,7 @@ public class ReadingQuestionController implements Initializable {
         }
     }
 
+    //Check before update or insert
     public boolean completeCheck() {
         sm = new SceneMovement();
         if (QuestionDAO.getTypeQuestionFlag() == 2) {
