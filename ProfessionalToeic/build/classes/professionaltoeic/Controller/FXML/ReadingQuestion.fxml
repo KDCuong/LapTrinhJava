@@ -14,13 +14,18 @@
             <Label styleClass="Title" text="Question Management" />
          </children>
       </HBox>
-      <Label text="Content" GridPane.rowIndex="2">
+      <Label text="Content" GridPane.halignment="CENTER" GridPane.rowIndex="2">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
          <GridPane.margin>
-            <Insets left="15.0" />
+            <Insets />
          </GridPane.margin>
+      </Label>
+      <Label fx:id="lblPID" text="Paragraph ID:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
       </Label>
       <VBox prefHeight="228.0" prefWidth="746.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
          <children>
@@ -144,7 +149,7 @@
                   <Insets bottom="5.0" right="40.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#callAddQuestionManagerment" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonBack" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#callSceneManagerment" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonBack" text="Cancel">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -161,27 +166,9 @@
             </Button>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="654.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <TextArea fx:id="txtContent" prefHeight="69.0" prefWidth="630.0" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="774.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-         <children>
-            <Label fx:id="lblPID" text="Paragraph ID:">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <TextField fx:id="txtPID" prefHeight="31.0" prefWidth="630.0">
-               <HBox.margin>
-                  <Insets left="17.0" />
-               </HBox.margin>
-            </TextField>
          </children>
       </HBox>
       <Label text="Explain Path" GridPane.halignment="CENTER" GridPane.rowIndex="3">
@@ -189,12 +176,17 @@
             <Font name="System Bold" size="20.0" />
          </font>
          <GridPane.margin>
-            <Insets left="10.0" />
+            <Insets />
          </GridPane.margin>
       </Label>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <TextField fx:id="txtExplain" prefHeight="31.0" prefWidth="631.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TextField fx:id="txtPID" prefHeight="31.0" prefWidth="630.0" />
          </children>
       </HBox>
    </children>

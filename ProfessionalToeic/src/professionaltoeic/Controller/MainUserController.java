@@ -84,7 +84,6 @@ public class MainUserController implements Initializable {
         // TODO
         lbname.setText(UserDAO.getLoginUser().getFullname());
         lbpoint.setText(String.valueOf(UserDAO.getLoginUser().getPoint()));
-        btnSetting.setVisible(false);
     }    
     
     public void callLogIn(ActionEvent event) throws IOException {        

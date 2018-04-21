@@ -143,6 +143,7 @@ public class QuestionManagementController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), new ButtonType("OK"));
                 alert.showAndWait();
             }
+            QuestionDAO.setTypePageFlag("Update");
         switch (question.getType()) {
             case 1:
                 {
@@ -152,16 +153,16 @@ public class QuestionManagementController implements Initializable {
                 }
             case 2:
                 {
+                    QuestionDAO.setTypeQuestionFlag(2);
                     SceneMovement sm = new SceneMovement();
                     sm.callNewScene(event, "ReadingQuestion");
-                    QuestionDAO.setFlag(2);
                     break;
                 }
             default:
                 {
+                    QuestionDAO.setTypeQuestionFlag(3);
                     SceneMovement sm = new SceneMovement();
-                    sm.callNewScene(event, "ReadingQuestion");
-                    QuestionDAO.setFlag(3);
+                    sm.callNewScene(event, "ReadingQuestion"); 
                     break;
                 }
         }

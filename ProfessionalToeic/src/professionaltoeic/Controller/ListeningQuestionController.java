@@ -9,22 +9,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.Stage;
 import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.Model.Question;
 
@@ -35,8 +26,6 @@ import professionaltoeic.Model.Question;
  */
 public class ListeningQuestionController implements Initializable {
 
-    @FXML
-    private TextArea txtContent;
     @FXML
     private TextField txtAudio;
     @FXML
@@ -61,93 +50,74 @@ public class ListeningQuestionController implements Initializable {
     private Button btnDelete;
 
     private QuestionDAO qDAO;
+    SceneMovement sm;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LoadData();
     }
 
-    public void callAddQuestionManagerment(ActionEvent event) throws IOException {
-        SceneMovement sm = new SceneMovement();
-        sm.callNewScene(event, "AddQuestionManagement");
+     public void callSceneManagerment(ActionEvent event) throws IOException {
+        if (QuestionDAO.getTypePageFlag().equals("Add")){
+            sm = new SceneMovement();
+            sm.callNewScene(event, "AddQuestionManagement");
+        }
+        else{
+            sm = new SceneMovement();
+            sm.callNewScene(event, "QuestionManagement");
+        }
     }
 
     @FXML
     public void addListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
-        qDAO = new QuestionDAO();
-        RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
-        String rightAnswer = selectedRB.getText();
+        if (completeCheck()) {
+            qDAO = new QuestionDAO();
+            RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
+            String rightAnswer = selectedRB.getText();
 
-        Question question = new Question(1, txtAudio.getText(), txtImage.getText(), rdAnswer1.getText(), rdAnswer2.getText(),
-                rdAnswer3.getText(), rdAnswer4.getText(), rightAnswer, txtExplain.getText());
+            Question question = new Question(1, txtAudio.getText(), txtImage.getText(), rdAnswer1.getText(), rdAnswer2.getText(),
+                    rdAnswer3.getText(), rdAnswer4.getText(), rightAnswer, txtExplain.getText());
 
-        if (qDAO.insertListeningQuestion(question)) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText("Adding question successfull");
-            alert.setContentText(null);
-            alert.getButtonTypes();
-            alert.showAndWait();
-
-            SceneMovement sm = new SceneMovement();
-            sm.callNewScene(event, "AddQuestionManagement");
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Please recheck your question");
-            alert.setContentText(null);
-            alert.getButtonTypes();
-            alert.show();
+            if (qDAO.insertListeningQuestion(question)) {
+                sm = new SceneMovement();
+                sm.callConfirmAlert("Adding question successfull");
+                sm.callNewScene(event, "AddQuestionManagement");
+            } else {
+                sm = new SceneMovement();
+                sm.callErrorAlert("Something wrong happened. Please retry it later");
+            }
         }
     }
 
     @FXML
     public void updateListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
-        qDAO = new QuestionDAO();
-        if (QuestionDAO.getQuestion().getFlag().equals("Deleted")) {
-            if (qDAO.reverseQuestion(QuestionDAO.getQuestion().getId())) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Your question now up to date");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
-                sm.callNewScene(event, "QuestionManagement");
+        if (completeCheck()) {
+            qDAO = new QuestionDAO();
+            if (QuestionDAO.getQuestion().getFlag().equals("Deleted")) {
+                if (qDAO.reverseQuestion(QuestionDAO.getQuestion().getId())) {
+                    sm = new SceneMovement();
+                    sm.callConfirmAlert("Your question now up to date");
+                    sm.callNewScene(event, "QuestionManagement");
+                } else {
+                    sm = new SceneMovement();
+                    sm.callErrorAlert("Something wrong happened. Please retry it later");
+                }
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please retry in a minute later");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
-            }
-        } else {
 
-            RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
-            String rightAnswer = selectedRB.getText();
-            Question question = new Question(QuestionDAO.getQuestion().getId(), 1, "",
-                    txtAudio.getText(), txtImage.getText(), QuestionDAO.getQuestion().getFlag(), rdAnswer1.getText(), rdAnswer2.getText(),
-                    rdAnswer3.getText(), rdAnswer4.getText(), rightAnswer, txtExplain.getText(), 0);
+                RadioButton selectedRB = (RadioButton) GroupAnswer.getSelectedToggle();
+                String rightAnswer = selectedRB.getText();
+                Question question = new Question(QuestionDAO.getQuestion().getId(), 1, "",
+                        txtAudio.getText(), txtImage.getText(), QuestionDAO.getQuestion().getFlag(), rdAnswer1.getText(), rdAnswer2.getText(),
+                        rdAnswer3.getText(), rdAnswer4.getText(), rightAnswer, txtExplain.getText(), 0);
 
-            if (qDAO.updateListeningQuestion(question)) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Update question successfull");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
-                sm.callNewScene(event, "QuestionManagement");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please recheck your question");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                if (qDAO.updateListeningQuestion(question)) {
+                    sm = new SceneMovement();
+                    sm.callConfirmAlert("Update question successfull");
+                    sm.callNewScene(event, "QuestionManagement");
+                } else {
+                    sm = new SceneMovement();
+                    sm.callErrorAlert("Something wrong happened. Please retry it later");
+                }
             }
         }
     }
@@ -158,22 +128,12 @@ public class ListeningQuestionController implements Initializable {
 
         if (QuestionDAO.getQuestion().getId() != 0) {
             if (qDAO.deleteQuestion(QuestionDAO.getQuestion().getId())) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Delete question successfull");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
+                sm = new SceneMovement();
+                sm.callConfirmAlert("Delete question successfull");
                 sm.callNewScene(event, "QuestionManagement");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Retry in a mininute later");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm = new SceneMovement();
+                sm.callErrorAlert("Something wrong happened. Please retry it later");
             }
         }
     }
@@ -205,6 +165,14 @@ public class ListeningQuestionController implements Initializable {
                 txtExplain.setEditable(false);
             }
         }
+    }
 
+    public boolean completeCheck() {
+        sm = new SceneMovement();
+        if (sm.dataTextFieldCheck(txtAudio, "AUDIO PATH") == false
+                || sm.dataTextFieldCheck(txtImage, "IMAGE PATH") == false) {
+            return false;
+        }
+        return true;
     }
 }
