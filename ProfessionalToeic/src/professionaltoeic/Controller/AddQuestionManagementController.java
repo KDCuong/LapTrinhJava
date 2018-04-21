@@ -27,12 +27,15 @@ public class AddQuestionManagementController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
     
+    //Move to QuestionManagerment Scene
     public void callQuestionManagerment(ActionEvent event) throws IOException {        
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
@@ -44,6 +47,7 @@ public class AddQuestionManagementController implements Initializable {
         stage.show();
      }
     
+    //Move to add ListeningQuestion Scene
     public void callListeningQuestion(ActionEvent event) throws IOException {
         Question question = new Question();
         QuestionDAO.setQuestion(question);
@@ -53,6 +57,7 @@ public class AddQuestionManagementController implements Initializable {
         sm.callNewScene(event, "ListeningQuestion");
      }
     
+    //Move to add ReadingQuestion Scene
      public void callReadingQuestion(ActionEvent event) throws IOException {
         Question question = new Question();
         QuestionDAO.setQuestion(question);
@@ -63,6 +68,7 @@ public class AddQuestionManagementController implements Initializable {
         sm.callNewScene(event, "ReadingQuestion");
      }
      
+     //Move to add GrammarQuestion Scene
      public void callGrammarQuestion(ActionEvent event) throws IOException {
         Question question = new Question();
         QuestionDAO.setQuestion(question);

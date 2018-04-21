@@ -41,15 +41,14 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="tfLogin" prefHeight="31.0" prefWidth="409.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#ButtonLogin" prefHeight="31.0" prefWidth="96.0" styleClass="ButtonSignIn" text="Sign In" textAlignment="CENTER">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#callMainScene" prefHeight="31.0" prefWidth="96.0" styleClass="ButtonSignIn" text="Sign In" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets right="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="btnR" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonAction" prefHeight="31.0" prefWidth="97.0" styleClass="ButtionSingup" text="Sign up" textAlignment="CENTER">
+                  <Button fx:id="btnR" alignment="CENTER" mnemonicParsing="false" onAction="#callRegisterScene" prefHeight="31.0" prefWidth="97.0" styleClass="ButtionSingup" text="Sign up" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="15.0" right="15.0" />
                      </HBox.margin>
@@ -93,7 +92,16 @@
                   </Label>
                </children>
             </HBox>
-            <PasswordField fx:id="tfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="txtLogin" onKeyPressed="#checkSpace" prefHeight="31.0" prefWidth="404.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <PasswordField fx:id="txtPassword" prefHeight="31.0" prefWidth="404.0" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>

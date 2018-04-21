@@ -117,7 +117,7 @@ public class ReadingTestController implements Initializable {
 
             try {
                 qDAO = new QuestionDAO();
-                questionparagraph = qDAO.getAllQuestionsByComboBoxIdParagraph(2,currentquestion.getParagraph_id());
+                questionparagraph = qDAO.getAllReadingQuestionsByIdParagraph(2,currentquestion.getParagraph_id());
             } catch (SQLException ex) {
                 Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

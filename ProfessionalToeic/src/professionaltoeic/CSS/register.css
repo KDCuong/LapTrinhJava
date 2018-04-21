@@ -11,22 +11,18 @@
 
 .ButtonCancel{
     -fx-background-color: #ff6633;
-    -fx-font-style: Bold;
 }
 
 .ButtionSingup{
     -fx-background-color: #33ff33;
-    -fx-font-style: Bold;
 }
 
 .Title{
     -fx-text-fill: red;
     -fx-font-family: "Baskerville Old Face";
     -fx-font-size: 70;
-    -fx-font-style: Bold;
 }
 
 Label{
-    -fx-font-style: Bold;
     -fx-font-size: 20;
 }

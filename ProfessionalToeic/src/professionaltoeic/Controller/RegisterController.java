@@ -11,18 +11,13 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 import javafx.scene.input.KeyEvent;
 
-import javafx.stage.Stage;
 import professionaltoeic.DAO.UserDAO;
 import professionaltoeic.Model.User;
 
@@ -34,88 +29,83 @@ import professionaltoeic.Model.User;
 public class RegisterController implements Initializable {
 
     @FXML
-    private Label lbId;
+    private TextField txtUserName;
     @FXML
-    private Label lbPw;
+    private TextField txtEmail;
     @FXML
-    private Button btnDk;
+    private TextField txtFullName;
     @FXML
-    private Button btnB;
-    @FXML
-    private TextField tfPhone;
-    @FXML
-    private TextField tfId;
-    @FXML
-    private TextField tfEmail;
-    @FXML
-    private TextField tfName;
-    @FXML
-    private TextField tfPw;
-    private int i, tid, tpw;
+    private TextField txtPassword;
+
     private UserDAO uDAO;
+    SceneMovement sm;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
-    @FXML
-    private void ButtonAction(ActionEvent event) throws IOException {
-       
-         SceneMovement sm = new SceneMovement();
-        sm.callNewScene(event, "Login");
-    }
-
-    @FXML
-    private void TfId(KeyEvent event) throws ClassNotFoundException, SQLException {
-        uDAO = new UserDAO();
-        String id = tfId.getText();
-        User user = uDAO.getUser(id);
-        if (user != null) {
-            lbId.setText("Id đã có người sử dụng");
-            tid = 0;
-        } else {
-            lbId.setText("Bạn có thể sử dụng ID này");
-            tid = 1;
-        }
-    }
-
-    @FXML
-    private void TfPw(KeyEvent event) {
-        i = tfPw.getText().length();
-        if (i <= 8 && i >= 6) {
-            lbPw.setText("Bạn có thể sử dụng password này");
-            tpw = 1;
-
-        } else {
-            lbPw.setText("Đặt pass từ 6-8 kí tự ");
-            tpw = 0;
-        }
-    }
-
-    @FXML
-    private void ButtonRegister(ActionEvent event) throws ClassNotFoundException, SQLException {
-        if (tid == 1 && tpw == 1) {
-            System.out.println("chuẩn");
-            uDAO = new UserDAO();
-            uDAO.insertUser(tfId.getText(), tfPw.getText(), tfName.getText(), tfEmail.getText());
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Thành công");
-            alert.setHeaderText("Đăng Ký Thành công");
-            alert.setContentText(null);
-            alert.getButtonTypes();
-            alert.show();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Lỗi rồi");
-            alert.setHeaderText("Đề nghị kiểm tra Id và Password");
-            alert.setContentText(null);
-            alert.getButtonTypes();
-            alert.show();
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
 
+    //Move back to Login Scene
+    @FXML
+    private void callLoginScene(ActionEvent event) throws IOException {
+        sm = new SceneMovement();
+        sm.callNewScene(event, "Login");
+    }
+
+    //Add User
+    @FXML
+    private void addUser(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
+        if (checkUserName() && checkPassword()) {
+            uDAO = new UserDAO();
+            uDAO.insertUser(txtUserName.getText(), txtPassword.getText(), txtFullName.getText(), txtEmail.getText());
+            sm = new SceneMovement();
+            sm.callConfirmAlert("Sign Up Successfull!! Let's Log in");
+            sm.callNewScene(event, "Login");
+        }
+    }
+
+    //Check User Name
+    private boolean checkUserName() throws ClassNotFoundException, SQLException {
+        sm = new SceneMovement();
+        if (sm.dataTextFieldCheck(txtUserName, "USER NAME") == false) {
+            return false;
+        }
+        uDAO = new UserDAO();
+        String uName = txtUserName.getText();
+        User user = uDAO.getUserByUserName(uName);
+        if (user != null) {
+            sm.callErrorAlert("User name already used");
+            return false;
+        }
+        return true;
+    }
+
+    //Check Password
+    private boolean checkPassword() {
+        sm = new SceneMovement();
+        if (sm.dataTextFieldCheck(txtPassword, "PASSWORD") == false) {
+            return false;
+        }
+        int i = txtPassword.getText().length();
+        if (i > 8 || i < 6) {
+            sm.callErrorAlert("Password length must be 6 to 8 character");
+            return false;
+        }
+        return true;
+    }
+
+    //Check Space
+    @FXML
+    private void checkSpace(KeyEvent ke) {
+        if (ke.getCode().equals(KeyCode.SPACE)) {
+            sm = new SceneMovement();
+            sm.callErrorAlert("User Name cannot have SPACE character!!");
+        }
+    }
 }

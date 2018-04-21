@@ -23,6 +23,7 @@ import javafx.stage.Stage;
  */
 public class SceneMovement {
 
+    //Close current scene and Open new one by ActionEvent 
     public void callNewScene(ActionEvent event, String sceneName) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
@@ -34,6 +35,7 @@ public class SceneMovement {
         stage.show();
     }
 
+    //Close current scene and Open new one by MouseEvent
     void callNewScene(MouseEvent event, String sceneName) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
@@ -45,6 +47,7 @@ public class SceneMovement {
         stage.show();
     }
 
+    //Make an Confirm Alert
     void callConfirmAlert(String headerText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm");
@@ -54,6 +57,7 @@ public class SceneMovement {
         alert.showAndWait();
     }
 
+    //Make an Error Alert
     void callErrorAlert(String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -63,23 +67,24 @@ public class SceneMovement {
         alert.showAndWait();
     }
 
+    //Check TextField
     boolean dataTextFieldCheck(TextField txt, String dataField) {
         if (txt.getText() == null) {
-            callErrorAlert("Question requires " + dataField + "!!! Please input");
+            callErrorAlert("Data requires " + dataField + "!!! Please input");
             return false;
         } else if (txt.getText().equals("")) {
-            callErrorAlert("Question requires " + dataField + "!!! Please input");
+            callErrorAlert("Data requires " + dataField + "!!! Please input");
             return false;
         }
         return true;
     }
-    
+    //Check TextArea
      boolean dataTextAreaCheck(TextArea txt, String dataField) {
         if (txt.getText() == null) {
-            callErrorAlert("Question requires " + dataField + "!!! Please input");
+            callErrorAlert("Data requires " + dataField + "!!! Please input");
             return false;
         } else if (txt.getText().equals("")) {
-            callErrorAlert("Question requires " + dataField + "!!! Please input");
+            callErrorAlert("Data requires " + dataField + "!!! Please input");
             return false;
         }
         return true;

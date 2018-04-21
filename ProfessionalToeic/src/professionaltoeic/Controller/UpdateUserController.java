@@ -12,14 +12,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.DAO.UserDAO;
-import professionaltoeic.Model.Question;
 import professionaltoeic.Model.User;
 
 /**
@@ -29,9 +24,6 @@ import professionaltoeic.Model.User;
  */
 public class UpdateUserController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
     @FXML
     private TextField txtUsername;
     @FXML
@@ -41,90 +33,62 @@ public class UpdateUserController implements Initializable {
     @FXML
     private TextField txtPassword;
     @FXML
-    private Button btnUpdate;
-    @FXML
     private Button btnDelete;
 
     private UserDAO uDAO;
+    SceneMovement sm;
 
+    /**
+     * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         LoadData();
     }
 
+    //Update User
     @FXML
     public void updateUser(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         uDAO = new UserDAO();
+        sm = new SceneMovement();
         if (UserDAO.getLoginUser().getFlag().equals("Deleted")) {
             if (uDAO.reverseUser(UserDAO.getLoginUser().getId())) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Your user now up to date");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
+                sm.callConfirmAlert("Your user now up to date");
                 sm.callNewScene(event, "UserManagement");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please retry in a minute later");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm.callErrorAlert("Something has happened! Please retry after few minute");
             }
         } else {
             User user = new User(UserDAO.getLoginUser().getId(), txtUsername.getText(), txtFullname.getText(),
                     txtPassword.getText(), UserDAO.getLoginUser().getType(), txtEmail.getText(), UserDAO.getLoginUser().getFlag(), 0);
 
             if (uDAO.updateUser(user)) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Update user successfull");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
+                sm.callConfirmAlert("Update user successfull");
                 sm.callNewScene(event, "UserManagement");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Please recheck your user");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm.callErrorAlert("Something has happened! Please retry after few minute");
             }
         }
     }
 
+    //Delete User
     @FXML
     public void deleteUser(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
-        uDAO = new UserDAO();
-
         if (UserDAO.getLoginUser().getId() != 0) {
+            uDAO = new UserDAO();
             if (uDAO.deleteUser(UserDAO.getLoginUser().getId())) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setHeaderText("Delete user successfull");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.showAndWait();
-
-                SceneMovement sm = new SceneMovement();
+                sm.callConfirmAlert("Delete user successfull");
                 sm.callNewScene(event, "UserManagement");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Retry in a mininute later");
-                alert.setContentText(null);
-                alert.getButtonTypes();
-                alert.show();
+                sm.callErrorAlert("Something has happened! Please retry after few minute");
             }
         }
     }
 
+    //Load data to scene when init it
     private void LoadData() {
         txtUsername.setText(UserDAO.getLoginUser().getName());
         txtFullname.setText(UserDAO.getLoginUser().getFullname());
@@ -140,8 +104,9 @@ public class UpdateUserController implements Initializable {
         }
     }
 
+    //Move to UserManagement scene
     public void callUserManagerment(ActionEvent event) throws IOException {
-        SceneMovement sm = new SceneMovement();
+        sm = new SceneMovement();
         sm.callNewScene(event, "UserManagement");
     }
 }

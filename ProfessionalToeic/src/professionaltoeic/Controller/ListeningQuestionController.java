@@ -57,6 +57,7 @@ public class ListeningQuestionController implements Initializable {
         LoadData();
     }
 
+    //Button cancel move to scene by Flag
      public void callSceneManagerment(ActionEvent event) throws IOException {
         if (QuestionDAO.getTypePageFlag().equals("Add")){
             sm = new SceneMovement();
@@ -68,6 +69,7 @@ public class ListeningQuestionController implements Initializable {
         }
     }
 
+     //Insert ListeningQuestion
     @FXML
     public void addListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         if (completeCheck()) {
@@ -89,6 +91,7 @@ public class ListeningQuestionController implements Initializable {
         }
     }
 
+     //Update ListeningQuestion
     @FXML
     public void updateListeningQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         if (completeCheck()) {
@@ -122,6 +125,7 @@ public class ListeningQuestionController implements Initializable {
         }
     }
 
+     //Delete ListeningQuestion
     @FXML
     public void deleteQuestion(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         qDAO = new QuestionDAO();
@@ -138,6 +142,7 @@ public class ListeningQuestionController implements Initializable {
         }
     }
 
+     //Load database when init scene
     private void LoadData() {
         txtAudio.setText(QuestionDAO.getQuestion().getAudio());
         txtImage.setText(QuestionDAO.getQuestion().getImage());
@@ -167,6 +172,7 @@ public class ListeningQuestionController implements Initializable {
         }
     }
 
+    //Check before update or insert
     public boolean completeCheck() {
         sm = new SceneMovement();
         if (sm.dataTextFieldCheck(txtAudio, "AUDIO PATH") == false
