@@ -79,7 +79,7 @@ public class GrammaTestController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             qDAO = new QuestionDAO();
-            question = qDAO.getAllQuestionsByComboBox(3);
+            question = qDAO.getAllQuestionsByComboBoxTest(3);
         } catch (SQLException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

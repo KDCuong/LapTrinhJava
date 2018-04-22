@@ -63,7 +63,7 @@ public class ReadingTestController implements Initializable {
     private RadioButton rb22;
     @FXML
     private RadioButton rb33;
-    
+
     @FXML
     private Text txtqt11;
     @FXML
@@ -78,13 +78,16 @@ public class ReadingTestController implements Initializable {
     private RadioButton rb222;
     @FXML
     private RadioButton rb333;
-    
+
     private QuestionDAO qDAO;
     private List<Question> question;
     private List<Question> questionparagraph;
     private int countQuestion = 0;
     private int questionNumber = 1;
     private Question currentquestion;
+    private Question question1;
+    private Question question2;
+    private Question question3;
     private QuestionAnswer uAnswers;
     private int currentCount = 1;
 
@@ -97,7 +100,7 @@ public class ReadingTestController implements Initializable {
 
         try {
             qDAO = new QuestionDAO();
-            question = qDAO.getAllQuestionsByComboBox(2);
+            question = qDAO.getAllQuestionsByComboBoxTest(2);
         } catch (SQLException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -110,31 +113,31 @@ public class ReadingTestController implements Initializable {
     }
 
     private void loadData() {
-        
+
         if (question.size() > 0) {
             System.out.println(String.valueOf(currentCount));
             currentquestion = question.get(new Random().nextInt(question.size()));
 
             try {
                 qDAO = new QuestionDAO();
-                questionparagraph = qDAO.getAllReadingQuestionsByIdParagraph(2,currentquestion.getParagraph_id());
+                questionparagraph = qDAO.getAllReadingQuestionsByIdParagraph(2, currentquestion.getParagraph_id());
             } catch (SQLException ex) {
                 Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             txtqt.setText(questionparagraph.get(0).getContent());
             txt1.setText(questionparagraph.get(0).getAnswer1());
             txt2.setText(questionparagraph.get(0).getAnswer2());
             txt3.setText(questionparagraph.get(0).getAnswer3());
-            
-             txtqt1.setText(questionparagraph.get(1).getContent());
+
+            txtqt1.setText(questionparagraph.get(1).getContent());
             txt11.setText(questionparagraph.get(1).getAnswer1());
             txt22.setText(questionparagraph.get(1).getAnswer2());
             txt33.setText(questionparagraph.get(1).getAnswer3());
-            
-             txtqt11.setText(questionparagraph.get(2).getContent());
+
+            txtqt11.setText(questionparagraph.get(2).getContent());
             txt111.setText(questionparagraph.get(2).getAnswer1());
             txt222.setText(questionparagraph.get(2).getAnswer2());
             txt333.setText(questionparagraph.get(2).getAnswer3());
@@ -172,7 +175,7 @@ public class ReadingTestController implements Initializable {
                 correct = 1;
             }
         }
-        
+
         uAnswers = new QuestionAnswer(questionNumber, uAnswer, correct);
         QuestionDAO.setQuestionAnswer(uAnswers);
         System.out.println(String.valueOf(correct) + uAnswer);
@@ -205,7 +208,7 @@ public class ReadingTestController implements Initializable {
         System.out.println(String.valueOf(correct1) + uAnswer1);
         questionNumber++;
         currentCount++;
-        
+
         //Cau 3
         correct = 0;
         uAnswer = "";
@@ -230,18 +233,26 @@ public class ReadingTestController implements Initializable {
         uAnswers = new QuestionAnswer(questionNumber, uAnswer, correct);
         QuestionDAO.setQuestionAnswer(uAnswers);
         System.out.println(String.valueOf(correct) + uAnswer);
-        
-        if (currentCount < countQuestion) {
 
-            question.remove(questionparagraph.get(0));
-            question.remove(questionparagraph.get(1));
-            question.remove(questionparagraph.get(2));
+        if (currentCount < countQuestion) {
+            for (int i = 0; i < question.size(); i++) {
+                if(question.get(i).getParagraph_id()==questionparagraph.get(0).getParagraph_id()){
+                     question1= new Question();
+                     question1= question.get(i);
+                     question.remove(question1);
+                     i=-1;
+                }
+            }
+//            question1 =questionparagraph.get(0);
+//            question.remove(question1);
+//            question.remove(questionparagraph.get(1));
+//            question.remove(questionparagraph.get(2));
             currentCount++;
             questionNumber++;
             loadData();
         } else {
             List<QuestionAnswer> qAns = QuestionDAO.getQuestionAnswer();
-             System.out.println(qAns.get(1).getuAnswer());
+            System.out.println(qAns.get(1).getuAnswer());
             List<Question> qUse = QuestionDAO.getQuestionUse();
             SceneMovement sm = new SceneMovement();
             sm.callNewScene(event, "FormResult");
