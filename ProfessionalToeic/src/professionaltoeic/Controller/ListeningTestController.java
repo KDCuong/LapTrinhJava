@@ -85,10 +85,10 @@ public class ListeningTestController implements Initializable {
         if (question.size() > 0) {
             lbnumber.setText(String.valueOf(questionNumber));
             currentquestion = question.get(new Random().nextInt(question.size()));
-            String url=currentquestion.getImage();
+            String url="Image/"+currentquestion.getImage();
             Image image = new Image(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());
             img.setImage(image);
-            audioURL=currentquestion.getAudio();
+            audioURL="Audio/"+currentquestion.getAudio();
             playAudio(audioURL);
             QuestionDAO.setQuestionUse(currentquestion);
         } else {  
@@ -136,6 +136,7 @@ public class ListeningTestController implements Initializable {
             questionNumber++;
             loadData();
         } else {
+            QuestionDAO.setTypeQuestionFlag(1);
              List<QuestionAnswer> qAns =QuestionDAO.getQuestionAnswer();
 //             System.out.println(qAns.get(1).getuAnswer());
              List<Question> qUse =QuestionDAO.getQuestionUse();
