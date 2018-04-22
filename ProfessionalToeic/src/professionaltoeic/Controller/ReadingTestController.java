@@ -251,6 +251,7 @@ public class ReadingTestController implements Initializable {
             questionNumber++;
             loadData();
         } else {
+            QuestionDAO.setTypeQuestionFlag(2);
             List<QuestionAnswer> qAns = QuestionDAO.getQuestionAnswer();
             System.out.println(qAns.get(1).getuAnswer());
             List<Question> qUse = QuestionDAO.getQuestionUse();
