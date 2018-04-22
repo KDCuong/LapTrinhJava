@@ -40,9 +40,21 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="352.0">
                      <children>
-                        <Button fx:id="btnSetting" mnemonicParsing="false" prefHeight="31.0" prefWidth="38.0">
+                        <Button mnemonicParsing="false" onAction="#callLogIn" prefHeight="31.0" prefWidth="38.0" styleClass="ButtonLogout">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icon/logout_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#callUserSetting" prefHeight="31.0" prefWidth="38.0">
                            <HBox.margin>
-                              <Insets left="30.0" />
+                              <Insets />
                            </HBox.margin>
                            <graphic>
                               <ImageView fitHeight="28.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
@@ -63,7 +75,7 @@
                      <children>
                         <Label fx:id="lbpoint" styleClass="Label" text="0">
                            <HBox.margin>
-                              <Insets right="50.0" />
+                              <Insets left="20.0" right="50.0" />
                            </HBox.margin></Label>
                         <Label styleClass="Label" text="Highest point : ">
                            <HBox.margin>
@@ -82,10 +94,9 @@
                   </Label>
                   <StackPane prefHeight="338.0" prefWidth="353.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7dc7f5" height="333.0" stroke="#ff0025" strokeType="INSIDE" strokeWidth="5.0" width="333.0" />
                         <VBox alignment="CENTER" prefHeight="347.0" prefWidth="355.0">
                            <children>
-                              <Button fx:id="btnListen" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonListening" prefHeight="95.0" prefWidth="313.0" text="Listening">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#callListeningTest" prefHeight="95.0" prefWidth="313.0" text="Listening">
                                  <graphic>
                                     <ImageView fitHeight="81.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -100,7 +111,7 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="btnRead" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonReading" prefHeight="92.0" prefWidth="310.0" text="Reading">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#callReadingTest" prefHeight="92.0" prefWidth="310.0" text="Reading">
                                  <graphic>
                                     <ImageView fitHeight="78.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -115,7 +126,7 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="btnGramma" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonGramma" prefHeight="98.0" prefWidth="312.0" text="Grammar">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#callGrammarTest" prefHeight="98.0" prefWidth="312.0" text="Grammar">
                                  <graphic>
                                     <ImageView fitHeight="84.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -146,44 +157,23 @@
                         <Font name="System Bold" size="34.0" />
                      </font>
                   </Label>
-                  <StackPane prefHeight="338.0" prefWidth="353.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7dc7f5" height="333.0" stroke="#ff0025" strokeType="INSIDE" strokeWidth="5.0" width="333.0" />
-                        <VBox alignment="CENTER" prefHeight="347.0" prefWidth="355.0">
-                           <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="92.0" prefWidth="310.0" text="Examing">
-                                 <font>
-                                    <Font name="System Bold" size="20.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="78.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../Icon/doing_icon.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </children>
-                  </StackPane>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="92.0" prefWidth="310.0" text="Examing">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="78.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Icon/doing_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
                </children></VBox>
          </children>
       </GridPane>
-      <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#callLogIn" prefHeight="67.0" prefWidth="139.0" styleClass="ButtonLogout" text="Log out">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="48.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Icon/logout_icon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
    </children>
 </AnchorPane>

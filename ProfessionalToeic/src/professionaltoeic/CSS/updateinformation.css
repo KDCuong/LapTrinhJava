@@ -1,0 +1,40 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-background-image: url("../Icon/Backgournd_user_image.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1000 700;
+    -fx-background-position: center center;
+}
+.ButtonAdd{
+    -fx-background-color: #33ff33;
+    -fx-font-type: bold;
+}
+
+.ButtonBack{
+    -fx-background-color: #ff6633;
+    -fx-font-type: bold;
+}
+
+.ButtonUpdate{
+    -fx-background-color: #ffff00;
+    -fx-font-type: bold;
+}
+
+.ButtonDel{
+    -fx-background-color: #9999ff;
+    -fx-font-type: bold;
+}
+
+Label{
+    -fx-text-fill: black;
+}
+
+.Title{
+    -fx-text-fill: red;
+    -fx-font-family: "Baskerville Old Face";
+    -fx-font-size: 70;
+    -fx-font-type: Bold;
+}

@@ -3,7 +3,7 @@
  */
 
 .mainFxmlClass {
-    -fx-background-image: url("../Icon/Backgournd_user_image.jpg");
+    -fx-background-image: url("../Icon/Background_main_image.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: 1000 700;
     -fx-background-position: center center;
@@ -19,4 +19,16 @@
     -fx-font-family: "Baskerville Old Face";
     -fx-font-size: 70;
     -fx-font-type: Bold;
+}
+
+.Label{
+    -fx-font-size: 30;
+}
+
+.ScrollPane{
+    -fx-background-image: url("../Icon/Background_main_image.jpg");
+}
+
+.Text{
+    -fx-font-size: 30;
 }

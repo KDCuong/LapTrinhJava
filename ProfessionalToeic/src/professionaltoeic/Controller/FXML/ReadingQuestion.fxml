@@ -168,7 +168,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="654.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <TextArea fx:id="txtContent" prefHeight="69.0" prefWidth="630.0" />
+            <TextArea fx:id="txtContent" prefHeight="69.0" prefWidth="630.0" wrapText="true" />
          </children>
       </HBox>
       <Label text="Explain Path" GridPane.halignment="CENTER" GridPane.rowIndex="3">
