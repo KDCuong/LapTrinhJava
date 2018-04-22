@@ -68,14 +68,14 @@ public class ListeningTestController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             qDAO = new QuestionDAO();
-            question = qDAO.getAllQuestionsByComboBox(1);
+            question = qDAO.getAllQuestionsByComboBoxTest(1);
         } catch (SQLException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
         countQuestion = question.size();
-        lbnumber.setText(String.valueOf(questionNumber));
+        
 
         loadData();
         // TODO
@@ -83,6 +83,7 @@ public class ListeningTestController implements Initializable {
     private void loadData() {
         
         if (question.size() > 0) {
+            lbnumber.setText(String.valueOf(questionNumber));
             currentquestion = question.get(new Random().nextInt(question.size()));
             String url=currentquestion.getImage();
             Image image = new Image(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());

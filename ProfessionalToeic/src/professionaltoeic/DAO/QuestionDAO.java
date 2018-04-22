@@ -101,6 +101,42 @@ public class QuestionDAO {
         return questionList;
     }
 
+     //Get all Question in database by type && flag
+        public List<Question> getAllQuestionsByComboBoxTest(int Type) throws SQLException, ClassNotFoundException {
+        List<Question> questionList = new ArrayList<>();
+        String sql = "SELECT * FROM question where question_type = ? AND question_flag = 1";
+        PreparedStatement ps = dp.getConnection().prepareStatement(sql);
+        ps.setInt(1, Type);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("question_id");
+                int type = rs.getInt("question_type");
+                String content = rs.getString("question_content");
+                int flag = rs.getInt("question_flag");
+                String audio = rs.getString("question_audio");
+                String image = rs.getString("question_img");
+                String answer1 = rs.getString("answer_1");
+                String answer2 = rs.getString("answer_2");
+                String answer3 = rs.getString("answer_3");
+                String answer4 = rs.getString("answer_4");
+                String answer = rs.getString("question_answer");
+                String status = "";
+                String explain = rs.getString("question_explain");
+                int pid = rs.getInt("paragraph_id");
+                if (flag == 1) {
+                    status = "In use";
+                } else {
+                    status = "Deleted";
+                }
+                Question qt = new Question(id, type, content, audio, image, status,
+                        answer1, answer2, answer3, answer4, answer, explain, pid);
+                questionList.add(qt);
+            }
+        }
+        dp.closeDB();
+        return questionList;
+    }
+        
     //Get Question in database by id
     public Question getQuestionsByID(int id) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM question WHERE question_id = ?";
