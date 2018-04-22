@@ -85,7 +85,7 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7dc7f5" height="333.0" stroke="#ff0025" strokeType="INSIDE" strokeWidth="5.0" width="333.0" />
                         <VBox alignment="CENTER" prefHeight="347.0" prefWidth="355.0">
                            <children>
-                              <Button fx:id="btnListen" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonListening" prefHeight="95.0" prefWidth="313.0" text="Listening">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#callListeningTest" prefHeight="95.0" prefWidth="313.0" text="Listening">
                                  <graphic>
                                     <ImageView fitHeight="81.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -100,7 +100,7 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="btnRead" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonReading" prefHeight="92.0" prefWidth="310.0" text="Reading">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#callReadingTest" prefHeight="92.0" prefWidth="310.0" text="Reading">
                                  <graphic>
                                     <ImageView fitHeight="78.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -115,7 +115,7 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="btnGramma" alignment="CENTER" mnemonicParsing="false" onAction="#ButtonGramma" prefHeight="98.0" prefWidth="312.0" text="Grammar">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#callGrammarTest" prefHeight="98.0" prefWidth="312.0" text="Grammar">
                                  <graphic>
                                     <ImageView fitHeight="84.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

@@ -37,14 +37,8 @@ public class AddQuestionManagementController implements Initializable {
     
     //Move to QuestionManagerment Scene
     public void callQuestionManagerment(ActionEvent event) throws IOException {        
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.hide();
-        stage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/QuestionManagement.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("QuestionManagement");
-        stage.setScene(scene);
-        stage.show();
+        SceneMovement sm = new SceneMovement();
+        sm.callNewScene(event, "QuestionManagement");
      }
     
     //Move to add ListeningQuestion Scene
