@@ -90,6 +90,7 @@ public class ReadingTestController implements Initializable {
     private Question question3;
     private QuestionAnswer uAnswers;
     private int currentCount = 1;
+    private int type = 0;
 
     /**
      * Initializes the controller class.
@@ -97,7 +98,7 @@ public class ReadingTestController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        type = QuestionDAO.getTypeQuestionFlag();
         try {
             qDAO = new QuestionDAO();
             question = qDAO.getAllQuestionsByComboBoxTest(2);
@@ -106,9 +107,14 @@ public class ReadingTestController implements Initializable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        countQuestion = question.size();
-//        lbnumber.setText(String.valueOf(questionNumber));
+        if (type == 4) {
+            countQuestion = 3;
+            questionNumber=7;
+        } else {
+            countQuestion = question.size();
+        }
 
+//        lbnumber.setText(String.valueOf(questionNumber));
         loadData();
     }
 
@@ -236,11 +242,11 @@ public class ReadingTestController implements Initializable {
 
         if (currentCount < countQuestion) {
             for (int i = 0; i < question.size(); i++) {
-                if(question.get(i).getParagraph_id()==questionparagraph.get(0).getParagraph_id()){
-                     question1= new Question();
-                     question1= question.get(i);
-                     question.remove(question1);
-                     i=-1;
+                if (question.get(i).getParagraph_id() == questionparagraph.get(0).getParagraph_id()) {
+                    question1 = new Question();
+                    question1 = question.get(i);
+                    question.remove(question1);
+                    i = -1;
                 }
             }
 //            question1 =questionparagraph.get(0);
@@ -251,10 +257,8 @@ public class ReadingTestController implements Initializable {
             questionNumber++;
             loadData();
         } else {
-            QuestionDAO.setTypeQuestionFlag(2);
-            List<QuestionAnswer> qAns = QuestionDAO.getQuestionAnswer();
-            System.out.println(qAns.get(1).getuAnswer());
-            List<Question> qUse = QuestionDAO.getQuestionUse();
+
+            
             SceneMovement sm = new SceneMovement();
             sm.callNewScene(event, "FormResult");
         }

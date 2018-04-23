@@ -157,7 +157,7 @@
                         <Font name="System Bold" size="34.0" />
                      </font>
                   </Label>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="92.0" prefWidth="310.0" text="Examing">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#callToeicTest" prefHeight="92.0" prefWidth="310.0" text="Examing">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>

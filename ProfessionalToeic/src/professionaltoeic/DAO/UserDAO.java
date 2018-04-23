@@ -88,6 +88,18 @@ public class UserDAO {
         dp.closeDB();
     }
     
+    //Insert History
+    public void insertHistory(String name,int point,String date) throws ClassNotFoundException,SQLException{
+        String sql ="INSERT INTO history(user_name,point,date) " +
+                "VALUES(?,?,?)";
+        PreparedStatement rs = dp.getConnection().prepareStatement(sql);
+        rs.setString(1, name);
+        rs.setInt(2, point);
+        rs.setString(3, date);
+        rs.executeUpdate();
+        dp.closeDB();
+    }
+    
     //Update User
     public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE user SET user_fullname = ?, password = ?, type = ?, "
