@@ -70,13 +70,17 @@ public class GrammaTestController implements Initializable {
     private int countQuestion = 0;
     private int currentCount = 1;
     private int point = 0;
+    private int type = 0;
     private QuestionAnswer uAnswers;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        type =QuestionDAO.getTypeQuestionFlag();
         try {
             qDAO = new QuestionDAO();
             question = qDAO.getAllQuestionsByComboBoxTest(3);
@@ -85,9 +89,13 @@ public class GrammaTestController implements Initializable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        countQuestion = 10;
+        if (type==4) {
+            countQuestion = 5;
+        }
+        else {
+            countQuestion = 10;
+        }
         lbnumber.setText(String.valueOf(questionNumber));
-
         loadData();
         // TODO
     }
@@ -147,12 +155,15 @@ public class GrammaTestController implements Initializable {
             questionNumber++;
             loadData();
         } else {
-            QuestionDAO.setTypeQuestionFlag(3);
-             List<QuestionAnswer> qAns =QuestionDAO.getQuestionAnswer();
-//             System.out.println(qAns.get(1).getuAnswer());
-             List<Question> qUse =QuestionDAO.getQuestionUse();
-             SceneMovement sm = new SceneMovement();
+           if(type==4)
+           {
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "ListeningTest");
+           }
+           else {
+                SceneMovement sm = new SceneMovement();
                 sm.callNewScene(event, "FormResult");
+           }
         }
     }
 

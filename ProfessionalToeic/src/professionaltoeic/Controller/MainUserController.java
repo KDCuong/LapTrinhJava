@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.DAO.UserDAO;
 
 /**
@@ -44,6 +45,7 @@ public class MainUserController implements Initializable {
     //Go to listening practice
     @FXML
     private void callListeningTest(ActionEvent event) throws IOException {
+        QuestionDAO.setTypeQuestionFlag(1);
         sm = new SceneMovement();
         sm.callNewScene(event, "ListeningTest");
     }
@@ -51,6 +53,7 @@ public class MainUserController implements Initializable {
     //Go to Grammar practice
     @FXML
     private void callGrammarTest(ActionEvent event) throws IOException {
+        QuestionDAO.setTypeQuestionFlag(3);
         sm = new SceneMovement();
         sm.callNewScene(event, "GrammaTest");
     }
@@ -58,6 +61,7 @@ public class MainUserController implements Initializable {
     //Go to Reading practice
     @FXML
     private void callReadingTest(ActionEvent event) throws IOException {
+        QuestionDAO.setTypeQuestionFlag(2);
         sm = new SceneMovement();
         sm.callNewScene(event, "ReadingTest");
     }
@@ -73,5 +77,12 @@ public class MainUserController implements Initializable {
     private void callUserSetting(ActionEvent event) throws IOException {
         sm = new SceneMovement();
         sm.callNewScene(event, "UpdateInformation");
+    }
+
+    @FXML
+    private void callToeicTest(ActionEvent event) throws IOException {
+        QuestionDAO.setTypeQuestionFlag(4);
+        sm = new SceneMovement();
+        sm.callNewScene(event, "GrammaTest");
     }
 }

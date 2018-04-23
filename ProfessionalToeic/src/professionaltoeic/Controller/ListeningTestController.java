@@ -50,7 +50,7 @@ public class ListeningTestController implements Initializable {
     private RadioButton rb3;
     @FXML
     private RadioButton rb4;
-    
+
     private QuestionDAO qDAO;
     private List<Question> question;
     private Question currentquestion;
@@ -61,8 +61,12 @@ public class ListeningTestController implements Initializable {
     private QuestionAnswer uAnswers;
     private String audioURL;
     private AudioClip audioClip;
+    private int type = 0;
+
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,61 +78,68 @@ public class ListeningTestController implements Initializable {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        countQuestion = question.size();
-        
+        type = QuestionDAO.getTypeQuestionFlag();
+        if (type == 4) {
+            countQuestion = 1;
+            questionNumber=6;
+        } else {
+            countQuestion = question.size();
+        }
 
         loadData();
         // TODO
-    }    
+    }
+
     private void loadData() {
-        
+
         if (question.size() > 0) {
             lbnumber.setText(String.valueOf(questionNumber));
             currentquestion = question.get(new Random().nextInt(question.size()));
-            String url="Image/"+currentquestion.getImage();
+            String url = "Image/" + currentquestion.getImage();
             Image image = new Image(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());
             img.setImage(image);
-            audioURL="Audio/"+currentquestion.getAudio();
+            audioURL = "Audio/" + currentquestion.getAudio();
             playAudio(audioURL);
             QuestionDAO.setQuestionUse(currentquestion);
-        } else {  
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Không có câu hỏi nào !!!", new ButtonType("OK"));
-            alert.showAndWait();       
+            alert.showAndWait();
         }
-        
+
     }
+
     @FXML
     public void ButtonNext(ActionEvent event) throws IOException {
         audioClip.stop();
-        int correct =0;
-        String uAnswer ="";
+        int correct = 0;
+        String uAnswer = "";
         if (rb1.isSelected()) {
-            uAnswer=rb1.getText();
+            uAnswer = rb1.getText();
             if (rb1.getText().equals(currentquestion.getAnswer())) {
-                correct =1;
+                correct = 1;
             }
         }
         if (rb2.isSelected()) {
-             uAnswer=rb2.getText();
-            if (rb1.getText().equals(currentquestion.getAnswer())) {
-                correct =1;
+            uAnswer = rb2.getText();
+            if (rb2.getText().equals(currentquestion.getAnswer())) {
+                correct = 1;
             }
         }
         if (rb3.isSelected()) {
-             uAnswer=rb3.getText();
-            if (rb1.getText().equals(currentquestion.getAnswer())) {
-                correct =1;
+            uAnswer = rb3.getText();
+            if (rb3.getText().equals(currentquestion.getAnswer())) {
+                correct = 1;
             }
         }
         if (rb4.isSelected()) {
-             uAnswer=rb4.getText();
-            if (rb1.getText().equals(currentquestion.getAnswer())) {
-                correct =1;
+            uAnswer = rb4.getText();
+            if (rb4.getText().equals(currentquestion.getAnswer())) {
+                correct = 1;
             }
         }
-        uAnswers= new QuestionAnswer(questionNumber, uAnswer, correct);
+        uAnswers = new QuestionAnswer(questionNumber, uAnswer, correct);
         QuestionDAO.setQuestionAnswer(uAnswers);
-        System.out.println(String.valueOf(correct)+uAnswer);
+        System.out.println(String.valueOf(correct) + uAnswer);
         if (currentCount < countQuestion) {
 
             question.remove(currentquestion);
@@ -136,24 +147,27 @@ public class ListeningTestController implements Initializable {
             questionNumber++;
             loadData();
         } else {
-            QuestionDAO.setTypeQuestionFlag(1);
-             List<QuestionAnswer> qAns =QuestionDAO.getQuestionAnswer();
-//             System.out.println(qAns.get(1).getuAnswer());
-             List<Question> qUse =QuestionDAO.getQuestionUse();
-             SceneMovement sm = new SceneMovement();
+             if(type==4)
+           {
+                SceneMovement sm = new SceneMovement();
+                sm.callNewScene(event, "ReadingTest");
+           }
+           else {
+                SceneMovement sm = new SceneMovement();
                 sm.callNewScene(event, "FormResult");
+           }
         }
     }
 
-    private void playAudio(String url){
-            if(!url.equals("")){
-                audioClip = new AudioClip(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());
-                audioClip.play();
-            }else {
-                Alert alert = new Alert(Alert.AlertType.ERROR,"No audio path found!",new ButtonType("OK"));
-                alert.showAndWait();
-                System.out.println("No audio found!");
-            }
+    private void playAudio(String url) {
+        if (!url.equals("")) {
+            audioClip = new AudioClip(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());
+            audioClip.play();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No audio path found!", new ButtonType("OK"));
+            alert.showAndWait();
+            System.out.println("No audio found!");
+        }
     }
-    
+
 }

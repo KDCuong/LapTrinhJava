@@ -8,8 +8,14 @@ package professionaltoeic.Controller;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -25,8 +31,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import professionaltoeic.DAO.QuestionDAO;
+import professionaltoeic.DAO.UserDAO;
 import professionaltoeic.Model.Question;
 import professionaltoeic.Model.QuestionAnswer;
+import professionaltoeic.Model.User;
 
 public class FormResultController implements Initializable {
 
@@ -39,6 +47,7 @@ public class FormResultController implements Initializable {
 
     private int point = 0;
     private int type = 0;
+    private UserDAO us;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,6 +101,9 @@ public class FormResultController implements Initializable {
                         sp.setMaxSize(300, 300);
                         vba.getChildren().addAll(sp, lb);
                     }
+                    if (type == 4) {
+                        vba.getChildren().addAll(lb);
+                    }
 
                 });
                 hbox1.getChildren().addAll(btn);
@@ -141,6 +153,11 @@ public class FormResultController implements Initializable {
                         sp.setMaxSize(300, 300);
                         vba.getChildren().addAll(sp, lb);
                     }
+                    if (type == 4) {
+                        vba.getChildren().addAll(lb);
+                        User user = UserDAO.getLoginUser();
+                        user.setPoint(point * 20);
+                    }
 
                 });
                 hbox1.getChildren().addAll(btn);
@@ -155,6 +172,25 @@ public class FormResultController implements Initializable {
 //            vba.getChildren().add(hb);
         }
         lbpoint.setText(String.valueOf(point) + "/" + qAns.size());
+        if (type == 4) {
+            User user = UserDAO.getLoginUser();
+            int currentpoint= point * 20;
+            String name =user.getName();
+            String date = LocalDate.now().toString();
+            if(currentpoint>user.getPoint()){
+                user.setPoint(currentpoint);
+            }
+            lbpoint.setText(String.valueOf(point * 20) + "/" + qAns.size() * 20);
+            try {
+                us =new UserDAO();
+                us.insertHistory(name,currentpoint,date);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(FormResultController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(FormResultController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     public void callMainUser(ActionEvent event) throws IOException {
