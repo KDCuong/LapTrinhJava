@@ -16,9 +16,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
@@ -39,101 +36,101 @@ public class ListeningTestController implements Initializable {
     @FXML
     private Label lbnumber;
     @FXML
-    private Button btnnext;
-    @FXML
     private ImageView img;
     @FXML
-    private RadioButton rb1;
+    private RadioButton rbAnswer1;
     @FXML
-    private RadioButton rb2;
+    private RadioButton rbAnswer2;
     @FXML
-    private RadioButton rb3;
+    private RadioButton rbAnswer3;
     @FXML
-    private RadioButton rb4;
+    private RadioButton rbAnswer4;
 
     private QuestionDAO qDAO;
-    private List<Question> question;
-    private Question currentquestion;
+    private List<Question> listQuestion;
+    private Question currentQuestion;
     private int questionNumber = 1;
     private int countQuestion = 0;
     private int currentCount = 1;
-    private int point = 0;
     private QuestionAnswer uAnswers;
+    private String imageURL;
     private String audioURL;
     private AudioClip audioClip;
     private int type = 0;
+    SceneMovement sm;
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        type = QuestionDAO.getTypeQuestionFlag();
         try {
             qDAO = new QuestionDAO();
-            question = qDAO.getAllQuestionsByComboBoxTest(1);
+            listQuestion = qDAO.getAllQuestionsByComboBoxTest(1);
         } catch (SQLException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        type = QuestionDAO.getTypeQuestionFlag();
         if (type == 4) {
-            countQuestion = 1;
-            questionNumber=6;
+            //countQuestion = 16;
+            countQuestion = 3;
+            questionNumber = 21;
         } else {
-            countQuestion = question.size();
+            //countQuestion = 10;
+            countQuestion = 3;
         }
-
         loadData();
-        // TODO
     }
 
+    //Load 1 Listening question
     private void loadData() {
-
-        if (question.size() > 0) {
+        if (listQuestion.size() > 0) {
             lbnumber.setText(String.valueOf(questionNumber));
-            currentquestion = question.get(new Random().nextInt(question.size()));
-            String url = "Image/" + currentquestion.getImage();
-            Image image = new Image(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());
+            currentQuestion = listQuestion.get(new Random().nextInt(listQuestion.size()));
+            imageURL = "Image/" + currentQuestion.getImage();
+            Image image = new Image(professionaltoeic.ProfessionalToeic.class.getResource(imageURL).toString());
             img.setImage(image);
-            audioURL = "Audio/" + currentquestion.getAudio();
+            audioURL = "Audio/" + currentQuestion.getAudio();
             playAudio(audioURL);
-            QuestionDAO.setQuestionUse(currentquestion);
+            QuestionDAO.setQuestionUse(currentQuestion);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Không có câu hỏi nào !!!", new ButtonType("OK"));
-            alert.showAndWait();
+            sm = new SceneMovement();
+            sm.callErrorAlert("No Question Found !!!");
         }
-
     }
 
+    //Next Question
     @FXML
-    public void ButtonNext(ActionEvent event) throws IOException {
+    public void callNextQuestion(ActionEvent event) throws IOException {
         audioClip.stop();
         int correct = 0;
         String uAnswer = "";
-        if (rb1.isSelected()) {
-            uAnswer = rb1.getText();
-            if (rb1.getText().equals(currentquestion.getAnswer())) {
+        if (rbAnswer1.isSelected()) {
+            uAnswer = rbAnswer1.getText();
+            if (rbAnswer1.getText().equals(currentQuestion.getAnswer())) {
                 correct = 1;
             }
         }
-        if (rb2.isSelected()) {
-            uAnswer = rb2.getText();
-            if (rb2.getText().equals(currentquestion.getAnswer())) {
+        if (rbAnswer2.isSelected()) {
+            uAnswer = rbAnswer2.getText();
+            if (rbAnswer2.getText().equals(currentQuestion.getAnswer())) {
                 correct = 1;
             }
         }
-        if (rb3.isSelected()) {
-            uAnswer = rb3.getText();
-            if (rb3.getText().equals(currentquestion.getAnswer())) {
+        if (rbAnswer3.isSelected()) {
+            uAnswer = rbAnswer3.getText();
+            if (rbAnswer3.getText().equals(currentQuestion.getAnswer())) {
                 correct = 1;
             }
         }
-        if (rb4.isSelected()) {
-            uAnswer = rb4.getText();
-            if (rb4.getText().equals(currentquestion.getAnswer())) {
+        if (rbAnswer4.isSelected()) {
+            uAnswer = rbAnswer4.getText();
+            if (rbAnswer4.getText().equals(currentQuestion.getAnswer())) {
                 correct = 1;
             }
         }
@@ -142,32 +139,29 @@ public class ListeningTestController implements Initializable {
         System.out.println(String.valueOf(correct) + uAnswer);
         if (currentCount < countQuestion) {
 
-            question.remove(currentquestion);
+            listQuestion.remove(currentQuestion);
             currentCount++;
             questionNumber++;
             loadData();
         } else {
-             if(type==4)
-           {
-                SceneMovement sm = new SceneMovement();
+            if (type == 4) {
+                sm = new SceneMovement();
                 sm.callNewScene(event, "ReadingTest");
-           }
-           else {
-                SceneMovement sm = new SceneMovement();
+            } else {
+                sm = new SceneMovement();
                 sm.callNewScene(event, "FormResult");
-           }
+            }
         }
     }
 
+    //Play Audio
     private void playAudio(String url) {
         if (!url.equals("")) {
             audioClip = new AudioClip(professionaltoeic.ProfessionalToeic.class.getResource(url).toString());
             audioClip.play();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "No audio path found!", new ButtonType("OK"));
-            alert.showAndWait();
-            System.out.println("No audio found!");
+            sm = new SceneMovement();
+            sm.callErrorAlert("No audio path found!");
         }
     }
-
 }
