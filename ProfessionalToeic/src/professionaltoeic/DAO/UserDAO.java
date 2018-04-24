@@ -55,8 +55,10 @@ public class UserDAO {
     //Get User by username
     public User getUserByUserName(String uName) throws ClassNotFoundException,SQLException{
         user = null;
-        String sql ="SELECT * FROM user WHERE user_name = '" + uName+"'";
-        try (ResultSet rs = dp.executeReader(sql)) {
+        String sql ="SELECT * FROM user WHERE user_name = ?";
+        PreparedStatement ps = dp.getConnection().prepareStatement(sql);
+        ps.setString(1, uName);
+        try (ResultSet rs = ps.executeQuery()) {
             while(rs.next()){
                 int id = rs.getInt("user_id");
                 String name = rs.getString("user_name");
@@ -79,12 +81,15 @@ public class UserDAO {
     }
     
     //Insert User
-    public void insertUser(String id,String password,String fullname,String email) throws ClassNotFoundException,SQLException{
-        String sql ="INSERT INTO user(user_name,user_fullname,password,type,email,flag) " +
-                "VALUES('"+id+"','"+fullname+"','"+password+"',2,'"+email+"',1)";
-        try (PreparedStatement rs = dp.getConnection().prepareStatement(sql)) {
-            rs.executeUpdate();
-        }
+    public void insertUser(String name,String password,String fullname,String email) throws ClassNotFoundException,SQLException{
+        String sql ="INSERT INTO user(user_name,user_fullname,password,email,type,flag) " +
+                "VALUES(?,?,?,?,2,1)";
+        PreparedStatement ps = dp.getConnection().prepareStatement(sql);
+        ps.setString(1, name);
+        ps.setString(2, fullname);
+        ps.setString(3, password);
+        ps.setString(4, email);
+        ps.executeUpdate();
         dp.closeDB();
     }
     
@@ -92,11 +97,11 @@ public class UserDAO {
     public void insertHistory(String name,int point,String date) throws ClassNotFoundException,SQLException{
         String sql ="INSERT INTO history(user_name,point,date) " +
                 "VALUES(?,?,?)";
-        PreparedStatement rs = dp.getConnection().prepareStatement(sql);
-        rs.setString(1, name);
-        rs.setInt(2, point);
-        rs.setString(3, date);
-        rs.executeUpdate();
+        PreparedStatement ps = dp.getConnection().prepareStatement(sql);
+        ps.setString(1, name);
+        ps.setInt(2, point);
+        ps.setString(3, date);
+        ps.executeUpdate();
         dp.closeDB();
     }
     

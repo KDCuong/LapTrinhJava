@@ -16,9 +16,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 import professionaltoeic.DAO.QuestionDAO;
@@ -33,67 +30,68 @@ import professionaltoeic.Model.QuestionAnswer;
 public class ReadingTestController implements Initializable {
 
     @FXML
-    private Label lbnumber;
+    private Text txtQuestion1;
     @FXML
-    private Text txtqt;
+    private Text txtAnswer11;
     @FXML
-    private Text txt1;
+    private Text txtAnswer12;
     @FXML
-    private Text txt2;
+    private Text txtAnswer13;
     @FXML
-    private Text txt3;
+    private RadioButton rbAnswer11;
     @FXML
-    private RadioButton rb1;
+    private RadioButton rbAnswer12;
     @FXML
-    private RadioButton rb2;
-    @FXML
-    private RadioButton rb3;
+    private RadioButton rbAnswer13;
 
     @FXML
-    private Text txtqt1;
+    private Text txtQuestion2;
     @FXML
-    private Text txt11;
+    private Text txtAnswer21;
     @FXML
-    private Text txt22;
+    private Text txtAnswer22;
     @FXML
-    private Text txt33;
+    private Text txtAnswer23;
     @FXML
-    private RadioButton rb11;
+    private RadioButton rbAnswer21;
     @FXML
-    private RadioButton rb22;
+    private RadioButton rbAnswer22;
     @FXML
-    private RadioButton rb33;
+    private RadioButton rbAnswer23;
 
     @FXML
-    private Text txtqt11;
+    private Text txtQuestion3;
     @FXML
-    private Text txt111;
+    private Text txtAnswer31;
     @FXML
-    private Text txt222;
+    private Text txtAnswer32;
     @FXML
-    private Text txt333;
+    private Text txtAnswer33;
     @FXML
-    private RadioButton rb111;
+    private RadioButton rbAnswer31;
     @FXML
-    private RadioButton rb222;
+    private RadioButton rbAnswer32;
     @FXML
-    private RadioButton rb333;
+    private RadioButton rbAnswer33;
 
     private QuestionDAO qDAO;
-    private List<Question> question;
-    private List<Question> questionparagraph;
+    private List<Question> listQuestion;
+    private List<Question> questionParagraph;
     private int countQuestion = 0;
     private int questionNumber = 1;
-    private Question currentquestion;
-    private Question question1;
-    private Question question2;
-    private Question question3;
+    private Question currentQuestion;
+    private Question question;
+
     private QuestionAnswer uAnswers;
-    private int currentCount = 1;
+    private int currentCount = 0;
     private int type = 0;
+    SceneMovement sm;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -101,111 +99,107 @@ public class ReadingTestController implements Initializable {
         type = QuestionDAO.getTypeQuestionFlag();
         try {
             qDAO = new QuestionDAO();
-            question = qDAO.getAllQuestionsByComboBoxTest(2);
+            listQuestion = qDAO.getAllQuestionsByComboBoxTest(2);
         } catch (SQLException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (type == 4) {
-            countQuestion = 3;
-            questionNumber=7;
+            countQuestion = 8;
+            questionNumber = 37;
         } else {
-            countQuestion = question.size();
+            countQuestion = 14;
         }
-
-//        lbnumber.setText(String.valueOf(questionNumber));
         loadData();
     }
 
+    //Load 3 Reading Question in same Paragraph ID
     private void loadData() {
-
-        if (question.size() > 0) {
+        if (listQuestion.size() > 0) {
             System.out.println(String.valueOf(currentCount));
-            currentquestion = question.get(new Random().nextInt(question.size()));
+            currentQuestion = listQuestion.get(new Random().nextInt(listQuestion.size()));
 
             try {
                 qDAO = new QuestionDAO();
-                questionparagraph = qDAO.getAllReadingQuestionsByIdParagraph(2, currentquestion.getParagraph_id());
+                questionParagraph = qDAO.getAllReadingQuestionsByIdParagraph(2, currentQuestion.getParagraph_id());
             } catch (SQLException ex) {
                 Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtQuestion1.setText(questionParagraph.get(0).getContent());
+            txtAnswer11.setText(questionParagraph.get(0).getAnswer1());
+            txtAnswer12.setText(questionParagraph.get(0).getAnswer2());
+            txtAnswer13.setText(questionParagraph.get(0).getAnswer3());
 
-            txtqt.setText(questionparagraph.get(0).getContent());
-            txt1.setText(questionparagraph.get(0).getAnswer1());
-            txt2.setText(questionparagraph.get(0).getAnswer2());
-            txt3.setText(questionparagraph.get(0).getAnswer3());
+            txtQuestion2.setText(questionParagraph.get(1).getContent());
+            txtAnswer21.setText(questionParagraph.get(1).getAnswer1());
+            txtAnswer22.setText(questionParagraph.get(1).getAnswer2());
+            txtAnswer23.setText(questionParagraph.get(1).getAnswer3());
 
-            txtqt1.setText(questionparagraph.get(1).getContent());
-            txt11.setText(questionparagraph.get(1).getAnswer1());
-            txt22.setText(questionparagraph.get(1).getAnswer2());
-            txt33.setText(questionparagraph.get(1).getAnswer3());
+            txtQuestion3.setText(questionParagraph.get(2).getContent());
+            txtAnswer31.setText(questionParagraph.get(2).getAnswer1());
+            txtAnswer32.setText(questionParagraph.get(2).getAnswer2());
+            txtAnswer33.setText(questionParagraph.get(2).getAnswer3());
 
-            txtqt11.setText(questionparagraph.get(2).getContent());
-            txt111.setText(questionparagraph.get(2).getAnswer1());
-            txt222.setText(questionparagraph.get(2).getAnswer2());
-            txt333.setText(questionparagraph.get(2).getAnswer3());
-
-            QuestionDAO.setQuestionUse(questionparagraph.get(0));
-            QuestionDAO.setQuestionUse(questionparagraph.get(1));
-            QuestionDAO.setQuestionUse(questionparagraph.get(2));
+            QuestionDAO.setQuestionUse(questionParagraph.get(0));
+            QuestionDAO.setQuestionUse(questionParagraph.get(1));
+            QuestionDAO.setQuestionUse(questionParagraph.get(2));
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Không có câu hỏi nào !!!", new ButtonType("OK"));
-            alert.showAndWait();
+            sm = new SceneMovement();
+            sm.callErrorAlert("No Question Found !!!");
         }
-
     }
 
+    //Go to Next Question
     @FXML
-    public void ButtonNext(ActionEvent event) throws IOException {
+    public void callNextQuestion(ActionEvent event) throws IOException {
         //Cau 1
         int correct = 0;
         String uAnswer = "";
-        if (rb1.isSelected()) {
-            uAnswer = rb1.getText();
-            if (txt1.getText().equals(questionparagraph.get(0).getAnswer())) {
+        if (rbAnswer11.isSelected()) {
+            uAnswer = rbAnswer11.getText();
+            if (txtAnswer11.getText().equals(questionParagraph.get(0).getAnswer())) {
                 correct = 1;
             }
         }
-        if (rb2.isSelected()) {
-            uAnswer = rb2.getText();
-            if (txt2.getText().equals(questionparagraph.get(0).getAnswer())) {
+        if (rbAnswer12.isSelected()) {
+            uAnswer = rbAnswer12.getText();
+            if (txtAnswer12.getText().equals(questionParagraph.get(0).getAnswer())) {
                 correct = 1;
             }
         }
-        if (rb3.isSelected()) {
-            uAnswer = rb3.getText();
-            if (txt3.getText().equals(questionparagraph.get(0).getAnswer())) {
+        if (rbAnswer13.isSelected()) {
+            uAnswer = rbAnswer13.getText();
+            if (txtAnswer13.getText().equals(questionParagraph.get(0).getAnswer())) {
                 correct = 1;
             }
         }
-
         uAnswers = new QuestionAnswer(questionNumber, uAnswer, correct);
         QuestionDAO.setQuestionAnswer(uAnswers);
         System.out.println(String.valueOf(correct) + uAnswer);
         questionNumber++;
         currentCount++;
-//        
+
         //Cau 2
         int correct1 = 0;
         String uAnswer1 = "";
-        if (rb11.isSelected()) {
-            uAnswer1 = rb11.getText();
-            if (txt11.getText().equals(questionparagraph.get(1).getAnswer())) {
+        if (rbAnswer21.isSelected()) {
+            uAnswer1 = rbAnswer21.getText();
+            if (txtAnswer21.getText().equals(questionParagraph.get(1).getAnswer())) {
                 correct1 = 1;
             }
         }
-        if (rb22.isSelected()) {
-            uAnswer1 = rb22.getText();
-            if (txt22.getText().equals(questionparagraph.get(1).getAnswer())) {
+        if (rbAnswer22.isSelected()) {
+            uAnswer1 = rbAnswer22.getText();
+            if (txtAnswer22.getText().equals(questionParagraph.get(1).getAnswer())) {
                 correct1 = 1;
             }
         }
-        if (rb33.isSelected()) {
-            uAnswer1 = rb33.getText();
-            if (txt33.getText().equals(questionparagraph.get(1).getAnswer())) {
+        if (rbAnswer23.isSelected()) {
+            uAnswer1 = rbAnswer23.getText();
+            if (txtAnswer23.getText().equals(questionParagraph.get(1).getAnswer())) {
                 correct1 = 1;
             }
         }
@@ -216,24 +210,24 @@ public class ReadingTestController implements Initializable {
         currentCount++;
 
         //Cau 3
-        correct = 0;
-        uAnswer = "";
-        if (rb111.isSelected()) {
-            uAnswer = rb111.getText();
-            if (txt111.getText().equals(questionparagraph.get(2).getAnswer())) {
-                correct = 1;
+        int correct2 = 0;
+        String uAnswer2 = "";
+        if (rbAnswer31.isSelected()) {
+            uAnswer2 = rbAnswer31.getText();
+            if (txtAnswer31.getText().equals(questionParagraph.get(2).getAnswer())) {
+                correct2 = 1;
             }
         }
-        if (rb222.isSelected()) {
-            uAnswer = rb222.getText();
-            if (txt222.getText().equals(questionparagraph.get(2).getAnswer())) {
-                correct = 1;
+        if (rbAnswer32.isSelected()) {
+            uAnswer2 = rbAnswer32.getText();
+            if (txtAnswer32.getText().equals(questionParagraph.get(2).getAnswer())) {
+                correct2 = 1;
             }
         }
-        if (rb333.isSelected()) {
-            uAnswer = rb333.getText();
-            if (txt333.getText().equals(questionparagraph.get(2).getAnswer())) {
-                correct = 1;
+        if (rbAnswer33.isSelected()) {
+            uAnswer2 = rbAnswer33.getText();
+            if (txtAnswer33.getText().equals(questionParagraph.get(2).getAnswer())) {
+                correct2 = 1;
             }
         }
         uAnswers = new QuestionAnswer(questionNumber, uAnswer, correct);
@@ -241,27 +235,20 @@ public class ReadingTestController implements Initializable {
         System.out.println(String.valueOf(correct) + uAnswer);
 
         if (currentCount < countQuestion) {
-            for (int i = 0; i < question.size(); i++) {
-                if (question.get(i).getParagraph_id() == questionparagraph.get(0).getParagraph_id()) {
-                    question1 = new Question();
-                    question1 = question.get(i);
-                    question.remove(question1);
+            for (int i = 0; i < listQuestion.size(); i++) {
+                if (listQuestion.get(i).getParagraph_id() == questionParagraph.get(0).getParagraph_id()) {
+                    question = new Question();
+                    question = listQuestion.get(i);
+                    listQuestion.remove(question);
                     i = -1;
                 }
             }
-//            question1 =questionparagraph.get(0);
-//            question.remove(question1);
-//            question.remove(questionparagraph.get(1));
-//            question.remove(questionparagraph.get(2));
             currentCount++;
             questionNumber++;
             loadData();
         } else {
-
-            
-            SceneMovement sm = new SceneMovement();
+            sm = new SceneMovement();
             sm.callNewScene(event, "FormResult");
         }
     }
-
 }

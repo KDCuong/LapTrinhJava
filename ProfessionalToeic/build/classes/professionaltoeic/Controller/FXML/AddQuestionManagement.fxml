@@ -50,9 +50,9 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#callGrammarQuestion" prefHeight="136.0" prefWidth="202.0" text="Gramma" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <Button alignment="CENTER" mnemonicParsing="false" onAction="#callGrammarQuestion" prefHeight="136.0" prefWidth="202.0" text="Grammar" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <graphic>
-            <ImageView fitHeight="84.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="91.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Icon/gramma_icon.png" />
                </image>
