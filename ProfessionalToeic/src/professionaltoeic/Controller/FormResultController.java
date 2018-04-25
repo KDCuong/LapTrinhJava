@@ -36,9 +36,9 @@ public class FormResultController implements Initializable {
 
     @FXML
     private HBox hbox1;
-     @FXML
+    @FXML
     private HBox hbox2;
-      @FXML
+    @FXML
     private HBox hbox3;
     @FXML
     private VBox vba;
@@ -63,12 +63,13 @@ public class FormResultController implements Initializable {
                 btn.setOnAction((event) -> {
                     showAnswer(btn, listQuestion);
                 });
-                if (numberQuestion < 15){
+                if (numberQuestion < 15) {
                     hbox1.getChildren().addAll(btn);
-                }else if (numberQuestion >= 15 && numberQuestion < 30){
+                } else if (numberQuestion >= 15 && numberQuestion < 30) {
                     hbox2.getChildren().addAll(btn);
-                }else
-                    hbox3.getChildren().addAll(btn);    
+                } else {
+                    hbox3.getChildren().addAll(btn);
+                }
                 point++;
                 numberQuestion++;
             } else {
@@ -77,12 +78,13 @@ public class FormResultController implements Initializable {
                 btn.setOnAction((event) -> {
                     showAnswer(btn, listQuestion);
                 });
-                if (numberQuestion < 15){
+                if (numberQuestion < 15) {
                     hbox1.getChildren().addAll(btn);
-                }else if (numberQuestion >= 15 && numberQuestion < 30){
+                } else if (numberQuestion >= 15 && numberQuestion < 30) {
                     hbox2.getChildren().addAll(btn);
-                }else
+                } else {
                     hbox3.getChildren().addAll(btn);
+                }
                 numberQuestion++;
             }
         }
@@ -121,17 +123,20 @@ public class FormResultController implements Initializable {
         vba.getChildren().clear();
         Label lb = new Label("Câu Đúng : " + listQuestion.get(quest).getAnswer());
         lb.setFont(Font.font(18));
-        lb.setStyle("-fx-font-weight: bold;-fx-font-size: 50;");
+        lb.setStyle("-fx-font-weight: bold;-fx-font-size: 30;");
         if (type == 1) {
             StackPane sp = new StackPane();
-            String urlimage = "Explain/" + listQuestion.get(quest).getExplain();
+            String urlimage = "Image/" + listQuestion.get(quest).getImage();
             Image image = new Image(professionaltoeic.ProfessionalToeic.class.getResource(urlimage).toString());
             ImageView img = new ImageView();
             img.setImage(image);
             img.setFitWidth(600);
             img.setFitHeight(400);
             sp.getChildren().add(img);
-            vba.getChildren().addAll(sp, lb);
+            Label lbExplain = new Label(listQuestion.get(quest).getExplain());
+            lbExplain.setFont(Font.font(18));
+            lbExplain.setStyle("-fx-font-weight: bold;-fx-font-size: 30;");
+            vba.getChildren().addAll(sp, lb, lbExplain);
         }
         if (type == 2) {
             vba.getChildren().addAll(lb);

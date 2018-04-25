@@ -77,12 +77,10 @@ public class ListeningTestController implements Initializable {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (type == 4) {
-            //countQuestion = 16;
-            countQuestion = 3;
+            countQuestion = 16;
             questionNumber = 21;
         } else {
-            //countQuestion = 10;
-            countQuestion = 3;
+            countQuestion = 10;
         }
         loadData();
     }

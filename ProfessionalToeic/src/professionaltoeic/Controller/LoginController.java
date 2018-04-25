@@ -48,7 +48,7 @@ public class LoginController implements Initializable {
     //Move to Sign Up Scene
     @FXML
     private void callRegisterScene(ActionEvent event) throws IOException {
-        SceneMovement sm = new SceneMovement();
+        sm = new SceneMovement();
         sm.callNewScene(event, "Register");
     }
 
