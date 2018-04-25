@@ -13,12 +13,15 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.Model.Question;
 import professionaltoeic.Model.QuestionAnswer;
@@ -41,6 +44,8 @@ public class GrammaTestController implements Initializable {
     @FXML
     private Text txtAnswer4;
     @FXML
+    private Text txtTimeLine;
+    @FXML
     private Label lbnumber;
     @FXML
     private RadioButton rbAnswer1;
@@ -60,6 +65,8 @@ public class GrammaTestController implements Initializable {
     private int type = 0;
     private QuestionAnswer uAnswers;
     SceneMovement sm;
+    private int time = 30;
+    private Timeline animat;
 
     /**
      * Initializes the controller class.
@@ -89,6 +96,21 @@ public class GrammaTestController implements Initializable {
 
     //Load 1 question in list question
     private void loadData() {
+        time = 29;
+        animat = new Timeline(new KeyFrame(Duration.seconds(1), (evt) -> {
+            txtTimeLine.setText(String.valueOf(time));
+            time--;
+        }));
+        animat.setCycleCount(30);
+        animat.play();
+        animat.setOnFinished((evt) -> {
+            try {
+                callNextQuestion(new ActionEvent(rbAnswer1, txtTimeLine));
+            } catch (IOException ex) {
+                Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
         if (listQuestion.size() > 0) {
             currentQuestion = listQuestion.get(new Random().nextInt(listQuestion.size()));
             txtQuestion.setText(currentQuestion.getContent());
@@ -107,6 +129,7 @@ public class GrammaTestController implements Initializable {
     //Next Question
     @FXML
     public void callNextQuestion(ActionEvent event) throws IOException {
+        animat.stop();
         int correct = 0;
         String uAnswer = "";
         if (rbAnswer1.isSelected()) {
