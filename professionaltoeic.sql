@@ -24,13 +24,15 @@ CREATE TABLE `history` (
   `user_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `point` int(3) NOT NULL,
   `date` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`user_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `history` */
 
-insert  into `history`(`user_name`,`point`,`date`) values 
-('kdcuong',100,'2018-04-23');
+insert  into `history`(`user_name`,`point`,`date`,`id`) values 
+('kdcuong',500,'2018-04-25',1),
+('kdcuong',200,'2018-04-25',2);
 
 /*Table structure for table `question` */
 
@@ -51,7 +53,7 @@ CREATE TABLE `question` (
   `question_answer` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `question_explain` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`question_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `question` */
 
@@ -69,15 +71,15 @@ insert  into `question`(`question_id`,`question_type`,`question_content`,`questi
 (31,3,'Orchestra music is wonderfully conductive to _____.',NULL,NULL,'relaxation','relaxed','relaxes','relax',0,1,'relaxation','GM9.PNG'),
 (32,3,'There\'s really no _____ for my behaviour last night. I can only think that i\'d had too much to drink.',NULL,NULL,'exception','escape','excuse','exclusion',0,1,'excuse','GM10.PNG'),
 (33,3,'Like restaurants, caterers are subject to _____ concerning safe food handling.',NULL,NULL,'regulate','regulations','regulatory','regulating',0,9,'regulations',NULL),
-(34,2,'Thank you for choosing to fly Trinata Airlines. We ask all passengers _____ their itinerary with\nTrinata Airlines within 48 hours of your flight time, as it is possible that weather conditions and\nother unforeseen events could lead to flight cancellations.',NULL,NULL,'confirmation','confirming','confirmed','to confirm',1,1,'to confirm',NULL),
-(35,2,'To improve service in the future, at each _____ that Trinata serves, we are distributing short\nsatisfaction surveys to arriving passengers.',NULL,NULL,'location','locate','locating','located',1,1,'location',NULL),
-(36,2,'These surveys are completely optional. We hope you a satisfactory experience flying with\nTrinata, and we will do our best to serve you _____ you arrive at your final destination.',NULL,NULL,'although','therefore','until','nevertheles',1,1,'until',NULL),
+(34,2,'Thank you for choosing to fly Trinata Airlines. We ask all passengers _____ their itinerary with\nTrinata Airlines within 48 hours of your flight time, as it is possible that weather conditions and\nother unforeseen events could lead to flight cancellations.',NULL,NULL,'confirmation','confirming','confirmed','to confirm',1,9,'to confirm',NULL),
+(35,2,'To improve service in the future, at each _____ that Trinata serves, we are distributing short\nsatisfaction surveys to arriving passengers.',NULL,NULL,'location','locate','locating','located',1,9,'location',NULL),
+(36,2,'These surveys are completely optional. We hope you a satisfactory experience flying with\nTrinata, and we will do our best to serve you _____ you arrive at your final destination.',NULL,NULL,'although','therefore','until','nevertheles',1,9,'until',NULL),
 (37,2,'In order to stay competitive in today\'s market, companies must continually work to develop\nnew products. Through _____ research, a company can ascertain what consumers are\ninterested in buying.',NULL,NULL,'system','systemize','systematic','systematically',2,1,'systematic',NULL),
 (38,2,'Then products that match those interests can be developed. Nothing should _____ about\nconsumer interests.',NULL,NULL,'assume','assumes','assumed','be assumed',2,1,'be assumed',NULL),
 (39,2,'Product developers need _____ all the data carefully before spending money on a new \nproduct.',NULL,NULL,'examine','to examine','examining','will examine',2,1,'to examine',NULL),
-(40,1,NULL,'image1.png','audio1.mp3','A','B','C','D',NULL,1,'A','GM1.PNG'),
-(41,1,NULL,'image2.png','audio2.mp3','A','B','C','D',NULL,1,'A','GM1.PNG'),
-(42,1,NULL,'image3.png','audio3.mp3','A','B','C','D',NULL,1,'B','GM1.PNG'),
+(40,1,NULL,'image1.png','audio1.mp3','A','B','C','D',NULL,1,'C','She is working in a copy room.'),
+(41,1,NULL,'image2.png','audio2.mp3','A','B','C','D',NULL,1,'A','People are walking across the bridge.'),
+(42,1,NULL,'image3.png','audio3.mp3','A','B','C','D',NULL,1,'B','The address is above the entrance.'),
 (43,1,NULL,'2','1','A','B','C','D',NULL,9,'A',NULL),
 (44,1,NULL,'3123123123','1','A','B','C','D',NULL,9,'A',NULL),
 (45,2,'test complete check',NULL,NULL,'1','2','3','',99,9,'1',NULL),
@@ -114,7 +116,29 @@ insert  into `question`(`question_id`,`question_type`,`question_content`,`questi
 (76,3,'Headlines magazine is a very successful ______ that has continued to grow in popularity over the past seven years.',NULL,NULL,'public','publication','publicize','publicly',0,1,'publication','GM28.PNG'),
 (77,3,'We only offer broadband internet service in ______ areas due to lack of technical capability.',NULL,NULL,'selected','selecting','selection','selects',0,1,'selected','GM29.PNG'),
 (78,3,'I have attached the ______ customer service survey you sent me, but i would like to make some additional comments.',NULL,NULL,'complete','completes','completing','completed',0,1,'complete','GM30.PNG'),
-(79,3,'Job seekers may benefit from the increasing ______ among venture businesses.',NULL,NULL,'compete','competitive','competition','competitively',0,1,'competition','GM31.PNG');
+(79,3,'Job seekers may benefit from the increasing ______ among venture businesses.',NULL,NULL,'compete','competitive','competition','competitively',0,1,'competition','GM31.PNG'),
+(80,1,NULL,'image10.PNG','audio10.mp3','A','B','C','D',NULL,1,'D','The men are standing in their boats.'),
+(81,1,NULL,'image11.PNG','audio11.mp3','A','B','C','D',NULL,1,'C','The hay is piled neatly on the ground.'),
+(82,1,NULL,'image12.PNG','audio12.mp3','A','B','C','D',NULL,1,'B','The passengers are closing the overhead bins.'),
+(83,1,NULL,'image13.PNG','audio13.mp3','A','B','C','D',NULL,1,'B','You can see mountains in the background.'),
+(84,1,NULL,'image14.PNG','audio14.mp3','A','B','C','D',NULL,1,'D','They\'re shaking hands.'),
+(85,1,NULL,'image15.PNG','audio15.mp3','A','B','C','D',NULL,1,'B','It is still snowing.'),
+(86,1,NULL,'image16.jpg','audio16.mp3','A','B','C','D',NULL,1,'B','These are dice.'),
+(87,1,NULL,'image17.jpg','audio17.mp3','A','B','C','D',NULL,1,'D','There\'s a fence near a building.'),
+(88,1,NULL,'image18.jpg','audio18.mp3','A','B','C','D',NULL,1,'C','The women are wearing coats.'),
+(89,1,NULL,'image19.jpg','audio19.mp3','A','B','C','D',NULL,1,'C','Some men are waiting near a vehicle.'),
+(90,1,NULL,'image20.PNG','audio20.mp3','A','B','C','D',NULL,1,'B','He\'s holding the lid open.'),
+(91,1,NULL,'image21.jpg','audio21.mp3','A','B','C','D',NULL,1,'C','They\'re carrying a box.'),
+(92,1,NULL,'image22.jpg','audio22.mp3','A','B','C','D',NULL,1,'A','The people are reading the menu.'),
+(93,1,NULL,'image23.jpg','audio23.mp3','A','B','C','D',NULL,1,'B','The man is carrying a box.'),
+(94,1,NULL,'image24.jpg','audio24.mp3','A','B','C','D',NULL,1,'D','The woman is weight-lifting.'),
+(95,1,NULL,'image25.jpg','audio25.mp3','A','B','C','D',NULL,1,'C','The person is working with clay.'),
+(96,1,NULL,'image4.jpg','audio4.mp3','A','B','C','D',NULL,1,'C','The man is carrying bags in both of his hands.'),
+(97,1,NULL,'image5.jpg','audio5.mp3','A','B','C','D',NULL,1,'A','Chairs have been placed around the tables.'),
+(98,1,NULL,'image6.jpg','audio6.mp3','A','B','C','D',NULL,1,'C','The passengers are boarding the bus.'),
+(99,1,NULL,'image7.jpg','audio7.mp3','A','B','C','D',NULL,1,'C','There are buildings standing on either side of the road.'),
+(100,1,NULL,'image8.jpg','audio8.mp3','A','B','C','D',NULL,1,'A','The woman is listening to music.'),
+(101,1,NULL,'image9.PNG','audio9.mp3','A','B','C','D',NULL,1,'C','He is holding a plate.');
 
 /*Table structure for table `user` */
 
@@ -130,7 +154,7 @@ CREATE TABLE `user` (
   `flag` int(11) NOT NULL,
   `point` int(11) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `user` */
 
