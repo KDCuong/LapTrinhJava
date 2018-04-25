@@ -13,11 +13,14 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.Model.Question;
 import professionaltoeic.Model.QuestionAnswer;
@@ -37,6 +40,8 @@ public class ReadingTestController implements Initializable {
     private Text txtAnswer12;
     @FXML
     private Text txtAnswer13;
+    @FXML
+    private Text txtTimeLine;
     @FXML
     private RadioButton rbAnswer11;
     @FXML
@@ -86,6 +91,8 @@ public class ReadingTestController implements Initializable {
     private int currentCount = 0;
     private int type = 0;
     SceneMovement sm;
+    private int time = 90;
+    private Timeline animat;
 
     /**
      * Initializes the controller class.
@@ -116,6 +123,21 @@ public class ReadingTestController implements Initializable {
 
     //Load 3 Reading Question in same Paragraph ID
     private void loadData() {
+        time = 89;
+        animat = new Timeline(new KeyFrame(Duration.seconds(1), (evt) -> {
+            txtTimeLine.setText(String.valueOf(time));
+            time--;
+        }));
+        animat.setCycleCount(90);
+        animat.play();
+        animat.setOnFinished((evt) -> {
+            try {
+                callNextQuestion(new ActionEvent(rbAnswer11, txtTimeLine));
+            } catch (IOException ex) {
+                Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
         if (listQuestion.size() > 0) {
             System.out.println(String.valueOf(currentCount));
             currentQuestion = listQuestion.get(new Random().nextInt(listQuestion.size()));
@@ -155,6 +177,8 @@ public class ReadingTestController implements Initializable {
     //Go to Next Question
     @FXML
     public void callNextQuestion(ActionEvent event) throws IOException {
+        animat.stop();
+
         //Cau 1
         int correct = 0;
         String uAnswer = "";

@@ -13,6 +13,8 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +23,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import professionaltoeic.DAO.QuestionDAO;
 import professionaltoeic.Model.Question;
@@ -45,6 +49,8 @@ public class ListeningTestController implements Initializable {
     private RadioButton rbAnswer3;
     @FXML
     private RadioButton rbAnswer4;
+     @FXML
+    private Text txtTimeLine;
 
     private QuestionDAO qDAO;
     private List<Question> listQuestion;
@@ -58,6 +64,8 @@ public class ListeningTestController implements Initializable {
     private AudioClip audioClip;
     private int type = 0;
     SceneMovement sm;
+    private int time =30;
+    private Timeline animat;
 
     /**
      * Initializes the controller class.
@@ -77,18 +85,31 @@ public class ListeningTestController implements Initializable {
             Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (type == 4) {
-            //countQuestion = 16;
-            countQuestion = 3;
+            countQuestion = 16;
             questionNumber = 21;
         } else {
-            //countQuestion = 10;
-            countQuestion = 3;
+            countQuestion = 10;
         }
         loadData();
     }
 
     //Load 1 Listening question
     private void loadData() {
+        time = 29;
+        animat = new Timeline(new KeyFrame(Duration.seconds(1), (evt) -> {
+            txtTimeLine.setText(String.valueOf(time));
+            time--;
+        }));
+        animat.setCycleCount(30);
+        animat.play();
+        animat.setOnFinished((evt) -> {
+            try {
+                callNextQuestion(new ActionEvent(rbAnswer1, txtTimeLine));
+            } catch (IOException ex) {
+                Logger.getLogger(GrammaTestController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         if (listQuestion.size() > 0) {
             lbnumber.setText(String.valueOf(questionNumber));
             currentQuestion = listQuestion.get(new Random().nextInt(listQuestion.size()));
@@ -107,6 +128,7 @@ public class ListeningTestController implements Initializable {
     //Next Question
     @FXML
     public void callNextQuestion(ActionEvent event) throws IOException {
+        animat.stop();
         audioClip.stop();
         int correct = 0;
         String uAnswer = "";
