@@ -105,6 +105,21 @@ public class UserDAO {
         dp.closeDB();
     }
     
+    //Update Highest Point
+     public boolean updatePoint(User user) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE user SET point = ? WHERE user_id = ?";
+        int i;
+        try (PreparedStatement ps = dp.getConnection().prepareStatement(sql)) {
+            ps.setInt(1, user.getPoint());
+            ps.setInt(2, user.getId());
+            i = 0;
+            i = ps.executeUpdate();
+        }
+        dp.closeDB();
+        return i != 0;
+    }
+
+    
     //Update User
     public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE user SET user_fullname = ?, password = ?, type = ?, "

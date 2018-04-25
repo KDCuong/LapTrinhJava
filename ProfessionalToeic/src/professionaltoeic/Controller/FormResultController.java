@@ -96,6 +96,14 @@ public class FormResultController implements Initializable {
             String date = LocalDate.now().toString();
             if (currentpoint > user.getPoint()) {
                 user.setPoint(currentpoint);
+                try {
+                    us = new UserDAO();
+                    us.updatePoint(user);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FormResultController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(FormResultController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             lbpoint.setText(String.valueOf(point * 20) + "/" + qAns.size() * 20);
             try {
