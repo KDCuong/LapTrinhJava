@@ -160,10 +160,10 @@ public class ListeningTestController implements Initializable {
         QuestionDAO.setQuestionAnswer(uAnswers);
         System.out.println(String.valueOf(correct) + uAnswer);
         if (currentCount < countQuestion) {
-
             listQuestion.remove(currentQuestion);
             currentCount++;
             questionNumber++;
+            rbAnswer1.setSelected(true);
             loadData();
         } else {
             if (type == 4) {

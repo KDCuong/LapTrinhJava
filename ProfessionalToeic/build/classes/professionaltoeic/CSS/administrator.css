@@ -1,0 +1,28 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-background-image: url("../Icon/Backgournd_image.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1000 700;
+    -fx-background-position: center center;
+}
+
+.Label{
+    -fx-fill: red;
+    -fx-font-family: "Baskerville Old Face";
+    -fx-font-size: 70;
+    -fx-font-type: Bold;
+/*    -fx-stroke: yellow;
+    -fx-stroke-width: 2;*/
+}
+.Button{
+    -fx-text-alignment: center;
+    -fx-text-size: 30;
+}
+
+.ButtonLogout{
+    -fx-background-color: #ff6633;
+    -fx-font-type: bold;
+}

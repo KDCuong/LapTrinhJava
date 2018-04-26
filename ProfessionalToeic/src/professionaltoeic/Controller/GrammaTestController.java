@@ -163,6 +163,7 @@ public class GrammaTestController implements Initializable {
             listQuestion.remove(currentQuestion);
             currentCount++;
             questionNumber++;
+            rbAnswer1.setSelected(true);
             loadData();
         } else {
             if (type == 4) {
