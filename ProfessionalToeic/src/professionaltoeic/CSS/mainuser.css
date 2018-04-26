@@ -9,8 +9,11 @@
     -fx-background-position: center center;
 }
 
-.Label{
-    -fx-font-size: 20;
+.Title{
+    -fx-text-fill: red;
+    -fx-font-family: "Baskerville Old Face";
+    -fx-font-size: 70;
+    -fx-font-type: Bold;
 }
 
 .ButtonLogout{

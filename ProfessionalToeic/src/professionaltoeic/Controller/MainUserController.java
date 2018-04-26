@@ -79,10 +79,18 @@ public class MainUserController implements Initializable {
         sm.callNewScene(event, "UpdateInformation");
     }
 
+    //Move to test
     @FXML
     private void callToeicTest(ActionEvent event) throws IOException {
         QuestionDAO.setTypeQuestionFlag(4);
         sm = new SceneMovement();
         sm.callNewScene(event, "GrammaTest");
+    }
+    
+    //Move to History Scene
+    @FXML
+    private void callHistory(ActionEvent event) throws IOException {
+        sm = new SceneMovement();
+        sm.callNewScene(event, "History");
     }
 }

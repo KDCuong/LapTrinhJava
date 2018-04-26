@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import professionaltoeic.Model.History;
 import professionaltoeic.Model.User;
 
 /**
@@ -105,6 +106,25 @@ public class UserDAO {
         dp.closeDB();
     }
     
+    //Get Historu
+     public List<History> getHistory(String uName) throws ClassNotFoundException,SQLException{
+         List<History> historyList= new ArrayList<>();
+        String sql ="SELECT * FROM history WHERE user_name = ?";
+        PreparedStatement ps = dp.getConnection().prepareStatement(sql);
+        ps.setString(1, uName);
+        try (ResultSet rs = ps.executeQuery()) {
+            while(rs.next()){
+                int point = rs.getInt("point");
+                String name = rs.getString("user_name");
+                String date = rs.getString("date");
+                History history = new History(name,point,date);
+                historyList.add(history);
+            }
+        }
+        dp.closeDB();
+        return historyList;
+    }
+     
     //Update Highest Point
      public boolean updatePoint(User user) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE user SET point = ? WHERE user_id = ?";
